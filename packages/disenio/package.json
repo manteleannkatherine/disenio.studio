@@ -1,0 +1,19 @@
+{
+  "name": "@disenio/ui",
+  "version": "0.0.1",
+  "description": "Diseño — a copy-paste design toolkit. Editorial, customizable, yours.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css",
+    "./components/*": "./src/components/*"
+  },
+  "files": ["src", "registry.json"],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

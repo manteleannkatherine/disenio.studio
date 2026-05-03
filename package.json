@@ -1,0 +1,13 @@
+{
+  "name": "disenio-io",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@disenio/web",
+    "build": "npm run build --workspace=@disenio/web"
+  }
+}
