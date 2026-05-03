@@ -13,10 +13,10 @@ export function SiteNav() {
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-7 text-sm text-[var(--ds-ink-soft)]">
-          <Link href="#components" className="hover:text-[var(--ds-ink)] transition-colors">Components</Link>
-          <Link href="#feels" className="hover:text-[var(--ds-ink)] transition-colors">Feels</Link>
-          <Link href="#theme" className="hover:text-[var(--ds-ink)] transition-colors">Theme</Link>
-          <Link href="#pricing" className="hover:text-[var(--ds-ink)] transition-colors">Pricing</Link>
+          <Link href="/docs" className="hover:text-[var(--ds-ink)] transition-colors">Docs</Link>
+          <Link href="/docs/components" className="hover:text-[var(--ds-ink)] transition-colors">Components</Link>
+          <Link href="/docs/theming" className="hover:text-[var(--ds-ink)] transition-colors">Theming</Link>
+          <Link href="/#pricing" className="hover:text-[var(--ds-ink)] transition-colors">Pricing</Link>
         </nav>
         <div className="flex items-center gap-3">
           <ModeToggle />

@@ -1,0 +1,14 @@
+{
+  "name": "disenio",
+  "version": "0.2.0",
+  "description": "CLI for disenio.io — copy-paste design toolkit.",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "disenio": "./bin.js" },
+  "scripts": {
+    "build:registry": "node ./scripts/build-registry.mjs",
+    "prepublishOnly": "node ./scripts/build-registry.mjs"
+  },
+  "files": ["bin.js", "registry.json"],
+  "engines": { "node": ">=18" }
+}

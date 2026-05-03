@@ -71,6 +71,12 @@ export default function Home() {
               <div className="border-t hairline pt-4">
                 <ThemeExport />
               </div>
+              <a
+                href="/docs/theming"
+                className="text-xs mono uppercase tracking-wider text-[var(--ds-ink-soft)] hover:text-[var(--ds-ink)] transition-colors text-center"
+              >
+                Full theme docs →
+              </a>
             </div>
           </div>
         </div>

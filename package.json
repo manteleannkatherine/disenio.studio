@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace=@disenio/web",
-    "build": "npm run build --workspace=@disenio/web"
+    "build": "npm run build --workspace=@disenio/web",
+    "registry": "npm run build:registry --workspace=disenio"
   }
 }
