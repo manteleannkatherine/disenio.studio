@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider, ToastProvider } from "@disenio/ui";
+import { CommandPalette } from "./_components/CommandPalette";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://disenio.io";
 
@@ -57,7 +58,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <ThemeProvider>
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            {children}
+            <CommandPalette />
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>

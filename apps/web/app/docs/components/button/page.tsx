@@ -5,6 +5,7 @@ import { CodeBlock } from "../../../_components/docs/CodeBlock";
 import { InstallTabs } from "../../../_components/docs/InstallTabs";
 import { PropsTable } from "../../../_components/docs/PropsTable";
 import { highlight } from "../../../_components/docs/highlight";
+import { A11yAudit } from "../../../_components/docs/A11yAudit";
 
 const SNIPPETS = {
   basic: `<Button variant="accent">Hola</Button>`,
@@ -80,6 +81,14 @@ export default async function ButtonPage() {
             { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Height and horizontal padding." },
             { name: "...rest", type: "ButtonHTMLAttributes", description: "All standard <button> props are forwarded." },
           ]}
+        />
+      </section>
+
+      <section id="a11y" className="flex flex-col gap-4">
+        <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Accessibility</h2>
+        <A11yAudit
+          keyboard="↹ focus · ↵ activate · space activate"
+          aria="role=button · aria-disabled when disabled"
         />
       </section>
     </article>

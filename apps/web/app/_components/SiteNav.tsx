@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { BrandLockup } from "./BrandMark";
 import { ModeToggle } from "./ModeToggle";
+import { CommandPaletteTrigger } from "./CommandPaletteTrigger";
+import { CalmToggle } from "./CalmToggle";
 
 export function SiteNav() {
   return (
@@ -20,6 +22,8 @@ export function SiteNav() {
           <Link href="/#pricing" className="hover:text-[var(--ds-ink)] transition-colors">Pricing</Link>
         </nav>
         <div className="flex items-center gap-3">
+          <CommandPaletteTrigger />
+          <CalmToggle />
           <ModeToggle />
           <a
             href="https://github.com"

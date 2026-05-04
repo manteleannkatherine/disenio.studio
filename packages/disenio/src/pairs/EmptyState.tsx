@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "../utils/cn";
+import { FeelEmptyArt } from "../illustrations/EmptyArt";
 
 /**
  * EmptyState — the placeholder you ship instead of a blank screen.
@@ -41,7 +42,7 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
         {...props}
       >
         <div aria-hidden className="text-[var(--ds-muted)]">
-          {art ?? <DefaultEmptyArt size={s.art} />}
+          {art ?? <FeelEmptyArt size={s.art} />}
         </div>
         <div className={cn("font-semibold tracking-[-0.01em] text-[var(--ds-ink)]", s.title)}>{title}</div>
         {description && (
@@ -54,22 +55,3 @@ export const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(
 );
 EmptyState.displayName = "EmptyState";
 
-function DefaultEmptyArt({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-      <rect
-        x="10"
-        y="14"
-        width="44"
-        height="36"
-        rx="6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeDasharray="4 4"
-        opacity="0.5"
-      />
-      <circle cx="32" cy="32" r="8" stroke="currentColor" strokeWidth="2" opacity="0.7" />
-      <path d="M28 32 L32 36 L40 28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
-    </svg>
-  );
-}

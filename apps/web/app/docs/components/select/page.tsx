@@ -5,6 +5,7 @@ import { CodeBlock } from "../../../_components/docs/CodeBlock";
 import { InstallTabs } from "../../../_components/docs/InstallTabs";
 import { PropsTable } from "../../../_components/docs/PropsTable";
 import { highlight } from "../../../_components/docs/highlight";
+import { A11yAudit } from "../../../_components/docs/A11yAudit";
 
 const OPTIONS = [
   { value: "modern", label: "Modern" },
@@ -58,6 +59,14 @@ export default async function SelectPage() {
             { name: "label", type: "string", description: "Optional label above the trigger." },
             { name: "disabled", type: "boolean", default: "false", description: "Disable the trigger." },
           ]}
+        />
+      </section>
+
+      <section id="a11y" className="flex flex-col gap-4">
+        <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Accessibility</h2>
+        <A11yAudit
+          keyboard="↑↓ navigate · ↵ pick · esc close · ↹ focus"
+          aria="role=listbox · aria-haspopup · aria-expanded · aria-selected on options"
         />
       </section>
     </article>

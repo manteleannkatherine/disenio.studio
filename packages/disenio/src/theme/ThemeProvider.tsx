@@ -155,8 +155,10 @@ export const FEELS: Record<Feel, { label: string; blurb: string; tokens: FeelTok
 export interface ThemeState {
   feel: Feel;
   accent: string;
+  calm: boolean;
   setFeel: (f: Feel) => void;
   setAccent: (hex: string) => void;
+  setCalm: (v: boolean) => void;
   exportCss: () => string;
 }
 
@@ -251,19 +253,46 @@ export function ThemeProvider({
 }) {
   const [feel, setFeelState] = React.useState<Feel>(defaultFeel);
   const [accent, setAccentState] = React.useState<string>(defaultAccent);
+  const [calm, setCalmState] = React.useState<boolean>(false);
 
-  // Read shared theme from URL once on mount
+  // Read shared theme from URL once on mount + restore calm preference
   React.useEffect(() => {
     if (globalThis.window === undefined) return;
     const params = new URLSearchParams(globalThis.location.search);
     const hash = params.get("t");
-    if (!hash) return;
-    const decoded = decodeThemeHash(hash);
-    if (decoded) {
-      setFeelState(decoded.feel);
-      setAccentState(decoded.accent);
+    if (hash) {
+      const decoded = decodeThemeHash(hash);
+      if (decoded) {
+        setFeelState(decoded.feel);
+        setAccentState(decoded.accent);
+      }
+    }
+    // Calm: localStorage wins, otherwise inherit from prefers-reduced-motion
+    const stored = globalThis.localStorage?.getItem("disenio:calm");
+    if (stored === "1" || stored === "0") {
+      setCalmState(stored === "1");
+    } else if (globalThis.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setCalmState(true);
     }
   }, []);
+
+  // Apply calm-mode token override (kills motion, snaps easings to linear)
+  React.useEffect(() => {
+    if (globalThis.document === undefined) return;
+    const root = document.documentElement;
+    if (calm) {
+      root.dataset.dsCalm = "1";
+      root.style.setProperty("--ds-duration", "0ms");
+      root.style.setProperty("--ds-easing", "linear");
+    } else {
+      delete root.dataset.dsCalm;
+      // restore from current Feel
+      const t = FEELS[feel].tokens;
+      root.style.setProperty("--ds-duration", t.duration);
+      root.style.setProperty("--ds-easing", t.easing);
+    }
+    globalThis.localStorage?.setItem("disenio:calm", calm ? "1" : "0");
+  }, [calm, feel]);
 
   React.useEffect(() => {
     applyTokens(feel, accent);
@@ -273,8 +302,10 @@ export function ThemeProvider({
     () => ({
       feel,
       accent,
+      calm,
       setFeel: setFeelState,
       setAccent: setAccentState,
+      setCalm: setCalmState,
       exportCss: () => {
         const t = FEELS[feel].tokens;
         return `:root {
@@ -298,7 +329,7 @@ export function ThemeProvider({
 }`;
       },
     }),
-    [feel, accent],
+    [feel, accent, calm],
   );
 
   return <ThemeCtx.Provider value={value}>{children}</ThemeCtx.Provider>;

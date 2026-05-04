@@ -31,6 +31,9 @@ const META = {
   Dialog: { id: "dialog", deps: ["utils/cn"], primitive: true },
   Select: { id: "select", deps: ["utils/cn"], primitive: true },
   Layout: { id: "layout", deps: ["utils/cn"], primitive: true },
+  Avatar: { id: "avatar", deps: ["utils/cn"], primitive: true },
+  Tooltip: { id: "tooltip", deps: ["utils/cn"], primitive: true },
+  DataTable: { id: "data-table", deps: ["utils/cn"], primitive: true },
 };
 
 const PAIR_META = {
@@ -38,6 +41,11 @@ const PAIR_META = {
   Toolbar: { id: "toolbar", deps: ["utils/cn"] },
   EmptyState: { id: "empty-state", deps: ["utils/cn"] },
   StatCard: { id: "stat-card", deps: ["utils/cn"] },
+  FilterBar: { id: "filter-bar", deps: ["utils/cn"] },
+  AuthCard: { id: "auth-card", deps: ["utils/cn"] },
+  PageHeading: { id: "page-heading", deps: ["utils/cn"] },
+  CommentRow: { id: "comment-row", deps: ["utils/cn"] },
+  PriceCard: { id: "price-card", deps: ["utils/cn"] },
 };
 
 const components = [];

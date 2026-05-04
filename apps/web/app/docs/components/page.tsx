@@ -1,8 +1,21 @@
 import Link from "next/link";
-import { Button, Input, Textarea, Badge, Card, CardHeader, CardTitle, CardDescription, Switch, Tabs, TabsList, TabsTrigger, Stack, Cluster } from "@disenio/ui";
+import { Button, Input, Textarea, Badge, Card, CardHeader, CardTitle, CardDescription, Switch, Tabs, TabsList, TabsTrigger, Stack, Cluster, Avatar, AvatarGroup, Tooltip } from "@disenio/ui";
 import { PageHeader } from "../../_components/docs/PageHeader";
 
 const ITEMS = [
+  {
+    href: "/docs/components/avatar",
+    name: "Avatar",
+    desc: "Image with fallback initials, status dot, and group with overflow.",
+    preview: (
+      <AvatarGroup max={3}>
+        <Avatar name="Ana" fake size="md" />
+        <Avatar name="Bo" fake size="md" />
+        <Avatar name="Cam" fake size="md" />
+        <Avatar name="Dee" fake size="md" />
+      </AvatarGroup>
+    ),
+  },
   {
     href: "/docs/components/badge",
     name: "Badge",
@@ -26,6 +39,23 @@ const ITEMS = [
           <CardDescription className="!text-xs">$96 once</CardDescription>
         </CardHeader>
       </Card>
+    ),
+  },
+  {
+    href: "/docs/components/data-table",
+    name: "DataTable",
+    desc: "Sortable headers, free-text filter, paging. Theme-aware.",
+    preview: (
+      <div className="w-full max-w-[200px] surface-deep rounded-md p-2 text-[10px] mono">
+        <div className="flex items-center justify-between text-[var(--ds-muted)] uppercase tracking-wider mb-1.5">
+          <span>name ↑</span><span>role</span>
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <div className="flex justify-between"><span>Ana</span><span>admin</span></div>
+          <div className="flex justify-between"><span>Sam</span><span>member</span></div>
+          <div className="flex justify-between"><span>Theo</span><span>admin</span></div>
+        </div>
+      </div>
     ),
   },
   {
@@ -107,6 +137,16 @@ const ITEMS = [
         <span className="size-2 mt-1.5 rounded-full bg-[var(--ds-accent)]" />
         <div className="text-xs"><div className="font-medium">Saved</div><div className="text-[var(--ds-muted)]">Your changes</div></div>
       </div>
+    ),
+  },
+  {
+    href: "/docs/components/tooltip",
+    name: "Tooltip",
+    desc: "Hover/focus hint. Four sides, configurable delay.",
+    preview: (
+      <Tooltip content="Hover me!">
+        <span className="surface-deep px-3 py-1.5 rounded-md text-sm cursor-help">Hover</span>
+      </Tooltip>
     ),
   },
 ];

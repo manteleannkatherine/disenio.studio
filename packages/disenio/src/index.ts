@@ -32,6 +32,17 @@ export type { DialogProps, DialogContentProps } from "./components/Dialog";
 export { Select } from "./components/Select";
 export type { SelectProps, SelectOption } from "./components/Select";
 
+export { Avatar, AvatarGroup } from "./components/Avatar";
+export type { AvatarProps, AvatarGroupProps } from "./components/Avatar";
+
+export { Tooltip } from "./components/Tooltip";
+export type { TooltipProps } from "./components/Tooltip";
+
+export { DataTable } from "./components/DataTable";
+export type { DataTableProps, DataTableColumn } from "./components/DataTable";
+
+export { ModernArt, EditorialArt, PlayfulArt, StarkArt, ClinicalArt, FeelEmptyArt } from "./illustrations/EmptyArt";
+
 export { Stack, Cluster, Switcher, Sidebar, Center, Grid, Spacer, Divider } from "./components/Layout";
 
 export { FormField } from "./pairs/FormField";
@@ -41,6 +52,15 @@ export { EmptyState } from "./pairs/EmptyState";
 export type { EmptyStateProps } from "./pairs/EmptyState";
 export { StatCard } from "./pairs/StatCard";
 export type { StatCardProps } from "./pairs/StatCard";
+
+export { FilterBar } from "./pairs/FilterBar";
+export { AuthCard } from "./pairs/AuthCard";
+export { PageHeading } from "./pairs/PageHeading";
+export type { PageHeadingProps } from "./pairs/PageHeading";
+export { CommentRow } from "./pairs/CommentRow";
+export type { CommentRowProps } from "./pairs/CommentRow";
+export { PriceCard } from "./pairs/PriceCard";
+export type { PriceCardProps } from "./pairs/PriceCard";
 export type {
   StackProps,
   ClusterProps,

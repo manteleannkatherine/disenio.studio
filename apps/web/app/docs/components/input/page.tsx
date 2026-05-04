@@ -5,6 +5,7 @@ import { CodeBlock } from "../../../_components/docs/CodeBlock";
 import { InstallTabs } from "../../../_components/docs/InstallTabs";
 import { PropsTable } from "../../../_components/docs/PropsTable";
 import { highlight } from "../../../_components/docs/highlight";
+import { A11yAudit } from "../../../_components/docs/A11yAudit";
 
 const SNIPPETS = {
   basic: `<Input label="Email" placeholder="hola@disenio.io" />`,
@@ -98,6 +99,14 @@ export default async function InputPage() {
             { name: "trailing", type: "ReactNode", description: "Content after the input — icons, suffixes." },
             { name: "...rest", type: "InputHTMLAttributes", description: "All standard <input> props are forwarded." },
           ]}
+        />
+      </section>
+
+      <section id="a11y" className="flex flex-col gap-4">
+        <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Accessibility</h2>
+        <A11yAudit
+          keyboard="↹ focus · type to enter · ↵ submit form"
+          aria="aria-describedby auto-wired to hint or error · aria-invalid on error"
         />
       </section>
     </article>

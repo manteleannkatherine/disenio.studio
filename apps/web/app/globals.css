@@ -102,3 +102,14 @@ body {
   from { transform: translateX(-100%); }
   to   { transform: translateX(0); }
 }
+
+/* Calm mode: kill animations + transitions globally. The Provider also clamps
+   --ds-duration to 0ms; this CSS catches keyframe animations + transforms. */
+[data-ds-calm="1"] *,
+[data-ds-calm="1"] *::before,
+[data-ds-calm="1"] *::after {
+  animation-duration: 0ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0ms !important;
+  scroll-behavior: auto !important;
+}
