@@ -1,10 +1,12 @@
+import Link from "next/link";
 import { SiteNav } from "./_components/SiteNav";
 import { FeelSwitcher } from "./_components/FeelSwitcher";
 import { AccentPicker } from "./_components/AccentPicker";
 import { ThemeExport } from "./_components/ThemeExport";
-import { ComponentShowcase } from "./_components/ComponentShowcase";
 import { BrandLockup } from "./_components/BrandMark";
 import { ShareThemeButton } from "./_components/ShareThemeButton";
+import { HomeShowcase } from "./_components/HomeShowcase";
+import { ThemeGallery } from "./_components/ThemeGallery";
 
 export default function Home() {
   return (
@@ -13,54 +15,73 @@ export default function Home() {
 
       {/* Hero */}
       <section className="relative px-6">
-        <div className="mx-auto max-w-6xl pt-20 pb-16 grid lg:grid-cols-12 gap-10">
+        <div className="mx-auto max-w-6xl pt-16 lg:pt-20 pb-16 grid lg:grid-cols-12 gap-10 lg:gap-12">
           <div className="lg:col-span-7 flex flex-col gap-7">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="mono text-[10px] uppercase tracking-[0.18em] surface-deep px-3 py-1 rounded-full">
-                v0.1 · early access
+                v0.2 · early access
               </span>
-              <span className="text-[var(--ds-muted)] text-xs">— diseñado en cualquier parte</span>
+              <span
+                className="mono text-[10px] uppercase tracking-[0.18em] px-3 py-1 rounded-full"
+                style={{ background: "var(--ds-brand-gradient)", color: "white" }}
+              >
+                new · pairs · diff/update CLI
+              </span>
             </div>
-            <h1 className="serif text-[clamp(3rem,7vw,6rem)] leading-[0.95] tracking-[-0.045em] font-semibold">
+
+            <h1 className="serif text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.95] tracking-[-0.045em] font-semibold">
               A design toolkit
               <br />
               with a <span className="brand-text italic">feel</span>.
             </h1>
-            <p className="text-lg text-[var(--ds-ink-soft)] max-w-[52ch] leading-relaxed">
+
+            <p className="text-lg text-[var(--ds-ink-soft)] max-w-[54ch] leading-relaxed">
               disenio.io is a copy-paste component library you can re-skin in seconds.
-              Pick a Feel — Editorial, Playful, Brutalist, Clinical — choose an accent, and the
-              whole page changes around you. Then copy the CSS and own it forever.
+              Pick a Feel, choose an accent, share the URL — the whole site re-tunes around you.
+              Then copy the source and own it forever.
             </p>
+
             <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="#install"
+              <Link
+                href="/docs/setup"
                 className="inline-flex items-center justify-center h-12 px-6 text-white font-medium transition-transform hover:-translate-y-0.5"
-                style={{ borderRadius: "var(--ds-button-radius)", background: "var(--ds-brand-gradient)", boxShadow: "0 12px 30px -12px rgba(110,76,242,0.6)" }}
+                style={{
+                  borderRadius: "var(--ds-button-radius)",
+                  background: "var(--ds-brand-gradient)",
+                  boxShadow: "0 12px 30px -12px rgba(110,76,242,0.6)",
+                }}
               >
-                npx disenio init →
-              </a>
-              <a
-                href="#components"
+                Get started → npx disenio init
+              </Link>
+              <Link
+                href="/docs/components"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium border hairline transition-colors hover:bg-[var(--ds-paper-deep)]"
                 style={{ borderRadius: "var(--ds-button-radius)" }}
               >
                 Browse components
-              </a>
+              </Link>
             </div>
-            <div className="flex items-center gap-6 pt-2">
-              <div className="flex -space-x-2">
-                {["#ff5b1f", "#7c3aed", "#10b981", "#0ea5e9"].map((c) => (
-                  <span key={c} className="size-7 rounded-full border-2" style={{ background: c, borderColor: "var(--ds-paper)" }} />
-                ))}
-              </div>
-              <span className="text-sm text-[var(--ds-ink-soft)]">
-                <span className="serif text-xl">2,400+</span> developers theming.
-              </span>
+
+            {/* Stats row */}
+            <div className="grid grid-cols-3 gap-6 pt-4 border-t hairline">
+              {[
+                { v: "11", l: "components" },
+                { v: "8", l: "layout primitives" },
+                { v: "4", l: "pairs" },
+              ].map((s) => (
+                <div key={s.l} className="flex flex-col gap-1">
+                  <span className="serif text-3xl tracking-[-0.02em]">{s.v}</span>
+                  <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                    {s.l}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
+          {/* Live theme card */}
           <div className="lg:col-span-5">
-            <div className="surface p-6 flex flex-col gap-5 sticky top-24" id="theme">
+            <div className="surface p-6 flex flex-col gap-5 lg:sticky lg:top-24" id="theme">
               <div className="flex items-center justify-between">
                 <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
                   live theme
@@ -73,12 +94,12 @@ export default function Home() {
                 <ThemeExport />
               </div>
               <div className="flex items-center justify-between gap-3 flex-wrap">
-                <a
+                <Link
                   href="/docs/theming"
                   className="text-xs mono uppercase tracking-wider text-[var(--ds-ink-soft)] hover:text-[var(--ds-ink)] transition-colors"
                 >
                   Full theme docs →
-                </a>
+                </Link>
                 <ShareThemeButton />
               </div>
             </div>
@@ -97,59 +118,147 @@ export default function Home() {
               <span className="text-[var(--ds-accent)]">✦</span>
               <span>pairs over primitives</span>
               <span className="text-[var(--ds-accent)]">✦</span>
-              <span>RTL · A11y · Print · Email</span>
+              <span>live diff against upstream</span>
+              <span className="text-[var(--ds-accent)]">✦</span>
+              <span>share themes as URLs</span>
               <span className="text-[var(--ds-accent)]">✦</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Feels */}
-      <section id="feels" className="px-6">
-        <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
+      {/* Differentiators */}
+      <section id="why" className="px-6">
+        <div className="mx-auto max-w-6xl py-24 flex flex-col gap-12">
           <div className="grid md:grid-cols-2 gap-8 items-end">
             <div>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">02 · feels</span>
-              <h2 className="serif text-5xl mt-2 tracking-[-0.04em] font-semibold">Six moods, one system.</h2>
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                01 · why disenio
+              </span>
+              <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
+                What other libraries don't ship.
+              </h2>
             </div>
             <p className="text-[var(--ds-ink-soft)] max-w-[52ch]">
-              Most libraries call this "themes" and stop at color. A <em className="serif italic">feel</em> bundles
-              radius, motion curves, shadow language, and typography into a coherent personality. Switch above and watch the whole site re-tune.
+              Most copy-paste libraries dump primitives in your repo and walk away. disenio.io
+              ships the layer everyone else skips — pairs, layouts, an upgrade path, and a viral
+              theme system.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { f: "Modern", desc: "Crisp white. Geometric. Violet→blue accent." },
-              { f: "Modern · Dark", desc: "Pure black. Gradient brand. Electric." },
-              { f: "Editorial", desc: "Warm paper. Ink type. Generous restraint." },
-              { f: "Playful", desc: "Springy. Pastel. Round everywhere." },
-              { f: "Brutalist", desc: "Hard edges. Mono. No apologies." },
-              { f: "Clinical", desc: "Cool grays. Tight. Subtle motion." },
+              {
+                k: "Feels system",
+                d: "Six themes that bundle radius, motion, shadow, and type — not just color. Switch above to watch.",
+                href: "/docs/theming",
+              },
+              {
+                k: "Pairs",
+                d: "FormField, Toolbar, EmptyState, StatCard. The unit between primitives and templates that nobody else documents.",
+                href: "/docs/pairs",
+              },
+              {
+                k: "diff & update",
+                d: "Lockfile-tracked components. Run `disenio diff` to see what changed upstream, `update` to pull it in.",
+                href: "/docs/cli",
+              },
+              {
+                k: "Share themes",
+                d: "Click Share. Send the URL. The recipient sees the entire site rendered in your theme. Built-in viral.",
+                href: "/docs/theming",
+              },
             ].map((x) => (
-              <div key={x.f} className="surface p-5 flex flex-col gap-3 min-h-[180px]">
-                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">feel</span>
-                <h3 className="serif text-2xl">{x.f}</h3>
-                <p className="text-sm text-[var(--ds-ink-soft)]">{x.desc}</p>
-              </div>
+              <Link
+                key={x.k}
+                href={x.href}
+                className="surface p-5 flex flex-col gap-3 min-h-[180px] hover:-translate-y-1 transition-transform group"
+              >
+                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                  feature
+                </span>
+                <h3 className="serif text-2xl tracking-[-0.02em]">{x.k}</h3>
+                <p className="text-sm text-[var(--ds-ink-soft)] flex-1">{x.d}</p>
+                <span className="text-[var(--ds-muted)] group-hover:text-[var(--ds-ink)] transition-colors text-sm">
+                  Learn more →
+                </span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Components */}
-      <section id="components" className="px-6 bg-[var(--ds-paper-deep)] border-y hairline">
+      {/* Themes in the wild */}
+      <section id="themes" className="px-6">
         <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
           <div className="grid md:grid-cols-2 gap-8 items-end">
             <div>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">03 · components</span>
-              <h2 className="serif text-5xl mt-2 tracking-[-0.04em] font-semibold">Pairs, not parts.</h2>
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                02 · themes in the wild
+              </span>
+              <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
+                Curated themes you can apply or share.
+              </h2>
             </div>
             <p className="text-[var(--ds-ink-soft)] max-w-[52ch]">
-              Components shown solo lie. disenio.io documents the unit you actually ship: a button next to its input,
-              a card next to its peers. Every sample below reacts to the live theme.
+              Every theme below is a real <code className="mono text-sm bg-[var(--ds-paper-deep)] px-1 py-0.5 rounded">/t/&lt;hash&gt;</code> URL.
+              Click <em>Apply</em> to render the entire site in that theme — or copy the share link to send it to anyone.
             </p>
           </div>
-          <ComponentShowcase />
+          <ThemeGallery />
+
+          {/* Built with strip */}
+          <div className="mt-8 pt-8 border-t hairline flex flex-col gap-5">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                built with disenio.io
+              </span>
+              <a
+                href="https://github.com"
+                className="text-xs mono uppercase tracking-wider text-[var(--ds-ink-soft)] hover:text-[var(--ds-ink)] transition-colors"
+              >
+                Submit yours →
+              </a>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {[
+                { name: "disenio.io", href: "/", note: "this site · meta" },
+                { name: "Studio (preview)", href: "/admin", note: "the hidden CMS" },
+                { name: "Marketing Kit", href: "#pricing", note: "coming soon" },
+                { name: "Your project?", href: "https://github.com", note: "open a PR" },
+              ].map((s) => (
+                <a
+                  key={s.name}
+                  href={s.href}
+                  className="surface-deep p-4 flex flex-col gap-1 hover:-translate-y-0.5 transition-transform"
+                >
+                  <span className="text-sm font-medium">{s.name}</span>
+                  <span className="text-xs text-[var(--ds-muted)]">{s.note}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Showcase */}
+      <section id="showcase" className="px-6 bg-[var(--ds-paper-deep)] border-y hairline">
+        <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
+          <div className="grid md:grid-cols-2 gap-8 items-end">
+            <div>
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                03 · showcase
+              </span>
+              <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
+                Built from the toolkit, theme-aware.
+              </h2>
+            </div>
+            <p className="text-[var(--ds-ink-soft)] max-w-[52ch]">
+              These are pairs and primitives composed in the wild. Change the Feel above — every
+              card, button, badge, and stat re-tunes in real time.
+            </p>
+          </div>
+          <HomeShowcase />
         </div>
       </section>
 
@@ -157,25 +266,40 @@ export default function Home() {
       <section id="install" className="px-6">
         <div className="mx-auto max-w-6xl py-24 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5 flex flex-col gap-5">
-            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">04 · install</span>
-            <h2 className="serif text-5xl tracking-[-0.04em] font-semibold">One command. Yours forever.</h2>
+            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              04 · install
+            </span>
+            <h2 className="serif text-4xl md:text-5xl tracking-[-0.04em] font-semibold">
+              Four commands. Yours forever.
+            </h2>
             <p className="text-[var(--ds-ink-soft)]">
               No runtime dependency. No version lock. Components copy into your repo as plain TSX,
-              styled with CSS variables you already export from the theme editor.
+              styled with CSS variables you exported from the editor.
             </p>
+            <Link
+              href="/docs/setup"
+              className="inline-flex items-center gap-2 text-sm text-[var(--ds-ink)] underline underline-offset-4 hover:text-[var(--ds-accent)] transition-colors"
+            >
+              Setup guide for your stack →
+            </Link>
           </div>
           <div className="lg:col-span-7 flex flex-col gap-3">
             {[
-              { c: "npx disenio init", d: "Drop tokens + utils into your repo." },
-              { c: "npx disenio add button input textarea", d: "Copy components as source." },
-              { c: "npx disenio theme apply ./theme.css", d: "Use the theme you exported above." },
+              { c: "npx disenio init", d: "Drop tokens, the cn util, and a starter theme." },
+              { c: "npx disenio add button form-field stack", d: "Copy components and pairs as source." },
+              { c: "npx disenio diff", d: "See what changed locally vs upstream." },
+              { c: "npx disenio update --force", d: "Pull the latest into your repo." },
             ].map((s, i) => (
               <div key={s.c} className="surface p-4 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <span className="mono text-[10px] text-[var(--ds-muted)] w-6">0{i + 1}</span>
-                  <code className="mono text-sm">{s.c}</code>
+                <div className="flex items-center gap-4 min-w-0">
+                  <span className="mono text-[10px] text-[var(--ds-muted)] w-6 shrink-0">
+                    0{i + 1}
+                  </span>
+                  <code className="mono text-sm truncate">{s.c}</code>
                 </div>
-                <span className="text-xs text-[var(--ds-ink-soft)] hidden sm:block">{s.d}</span>
+                <span className="text-xs text-[var(--ds-ink-soft)] hidden md:block shrink-0">
+                  {s.d}
+                </span>
               </div>
             ))}
           </div>
@@ -186,41 +310,76 @@ export default function Home() {
       <section id="pricing" className="px-6 bg-[var(--ds-paper-deep)] border-y hairline">
         <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
           <div className="text-center max-w-2xl mx-auto flex flex-col gap-3">
-            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">05 · pricing</span>
-            <h2 className="serif text-5xl tracking-[-0.04em] font-semibold">Free core. Pay for polish.</h2>
+            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              05 · pricing
+            </span>
+            <h2 className="serif text-4xl md:text-5xl tracking-[-0.04em] font-semibold">
+              Free core. Polish coming soon.
+            </h2>
             <p className="text-[var(--ds-ink-soft)]">
-              The library, themes, and docs are MIT. Buy time you'd otherwise spend designing.
+              The library, layout primitives, pairs, CLI, and 6 Feels are MIT. Premium kits and
+              themes ship next.
             </p>
           </div>
           <div className="grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto w-full">
             {[
-              { n: "Open", p: "Free", b: "MIT components, 4 Feels, theme editor.", cta: "Get started" },
-              { n: "Pro", p: "$96", b: "Premium blocks, dashboards, marketing kits, 30+ themes.", cta: "Buy lifetime", featured: true },
-              { n: "Studio", p: "$480", b: "Custom Feel, Figma kit, 1:1 design review.", cta: "Talk to us" },
+              {
+                n: "Open",
+                p: "Free",
+                b: "11 components · 8 layouts · 4 pairs · CLI · 6 Feels · share links.",
+                cta: "Get started",
+                href: "/docs/setup",
+                ctaTone: "outline" as const,
+              },
+              {
+                n: "Pro",
+                p: "$96",
+                b: "Marketing Kit + Dashboard Kit + Email Kit. Lifetime updates.",
+                cta: "Notify me",
+                href: "#",
+                featured: true,
+                soon: true,
+              },
+              {
+                n: "Studio",
+                p: "$19/mo",
+                b: "Hosted /studio: themes, blog, changelog, custom domain.",
+                cta: "Notify me",
+                href: "#",
+                soon: true,
+              },
             ].map((p) => (
               <div
                 key={p.n}
-                className="surface p-6 flex flex-col gap-4"
-                style={p.featured ? { borderColor: "var(--ds-ink)", borderWidth: 2 } : undefined}
+                className="surface p-6 flex flex-col gap-4 relative"
+                style={p.featured ? { borderColor: "var(--ds-accent)", borderWidth: 2 } : undefined}
               >
                 <div className="flex items-center justify-between">
                   <h3 className="serif text-2xl">{p.n}</h3>
                   {p.featured && (
-                    <span className="mono text-[10px] uppercase tracking-[0.18em] px-2 py-0.5 rounded-full" style={{ background: "var(--ds-accent)", color: "var(--ds-accent-ink)" }}>
-                      Popular
+                    <span
+                      className="mono text-[10px] uppercase tracking-[0.18em] px-2 py-0.5 rounded-full"
+                      style={{ background: "var(--ds-brand-gradient)", color: "white" }}
+                    >
+                      Coming soon
+                    </span>
+                  )}
+                  {!p.featured && p.soon && (
+                    <span className="mono text-[10px] uppercase tracking-[0.18em] surface-deep px-2 py-0.5 rounded-full text-[var(--ds-muted)]">
+                      soon
                     </span>
                   )}
                 </div>
                 <div className="serif text-5xl">{p.p}</div>
                 <p className="text-sm text-[var(--ds-ink-soft)] min-h-[60px]">{p.b}</p>
                 <a
-                  href="#install"
+                  href={p.href}
                   className="inline-flex items-center justify-center h-11 font-medium transition-transform hover:-translate-y-0.5"
                   style={{
                     borderRadius: "var(--ds-button-radius)",
-                    background: p.featured ? "var(--ds-accent)" : "transparent",
-                    color: p.featured ? "var(--ds-accent-ink)" : "var(--ds-ink)",
-                    border: p.featured ? "1px solid var(--ds-accent)" : "1px solid var(--ds-line)",
+                    background: p.featured ? "var(--ds-brand-gradient)" : "transparent",
+                    color: p.featured ? "white" : "var(--ds-ink)",
+                    border: p.featured ? "none" : "1px solid var(--ds-line)",
                   }}
                 >
                   {p.cta} →
@@ -233,25 +392,37 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="px-6">
-        <div className="mx-auto max-w-6xl py-14 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
+        <div className="mx-auto max-w-6xl py-14 flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
           <div className="flex flex-col gap-3">
             <BrandLockup height={48} />
             <p className="text-sm text-[var(--ds-ink-soft)] max-w-md">
               A copy-paste design toolkit. Modern. Customizable. Yours.
             </p>
           </div>
-          <div className="flex gap-10 text-sm">
+          <div className="grid grid-cols-3 gap-10 text-sm">
             <div className="flex flex-col gap-2">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">Product</span>
-              <a href="#components">Components</a>
-              <a href="#feels">Feels</a>
-              <a href="#pricing">Pricing</a>
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                Product
+              </span>
+              <Link href="/docs/components">Components</Link>
+              <Link href="/docs/pairs">Pairs</Link>
+              <Link href="/docs/theming">Theming</Link>
+              <Link href="/docs/cli">CLI</Link>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">Project</span>
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                Learn
+              </span>
+              <Link href="/docs">Docs</Link>
+              <Link href="/docs/setup">Setup</Link>
+              <Link href="/docs/installation">Installation</Link>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                Project
+              </span>
               <a href="https://github.com">GitHub ↗</a>
-              <a href="#install">Changelog</a>
-              <a href="#feels">Roadmap</a>
+              <a href="#pricing">Pricing</a>
             </div>
           </div>
         </div>

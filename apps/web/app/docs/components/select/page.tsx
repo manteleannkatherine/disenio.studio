@@ -11,7 +11,7 @@ const OPTIONS = [
   { value: "modernDark", label: "Modern · Dark" },
   { value: "editorial", label: "Editorial" },
   { value: "playful", label: "Playful" },
-  { value: "brutalist", label: "Brutalist" },
+  { value: "stark", label: "Stark" },
   { value: "clinical", label: "Clinical" },
 ];
 

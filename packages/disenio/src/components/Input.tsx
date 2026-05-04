@@ -23,7 +23,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div
           className={cn(
             "group flex items-center gap-2 rounded-xl border bg-[var(--ds-paper)] px-3.5",
-            "border-[var(--ds-line)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]",
+            "border-[var(--ds-line)] shadow-[inset_0_1px_0_var(--ds-surface-highlight)]",
             "transition-[border-color,box-shadow] duration-150",
             "focus-within:border-[var(--ds-ink)] focus-within:shadow-[0_0_0_4px_color-mix(in_oklab,var(--ds-accent)_25%,transparent)]",
             error && "border-[var(--ds-accent)] focus-within:border-[var(--ds-accent)]",

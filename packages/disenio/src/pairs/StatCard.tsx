@@ -39,7 +39,7 @@ export const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(
         ref={ref}
         className={cn(
           "flex flex-col gap-2 p-4 rounded-[var(--ds-radius)] border bg-[var(--ds-paper)] border-[var(--ds-line)]",
-          "shadow-[inset_0_1px_0_color-mix(in_oklab,white_60%,transparent),var(--ds-shadow)]",
+          "shadow-[inset_0_1px_0_var(--ds-surface-highlight),var(--ds-shadow)]",
           className,
         )}
         {...props}

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const SECTIONS = [
   {
@@ -42,8 +43,69 @@ const SECTIONS = [
   },
 ];
 
+function splitHref(href: string) {
+  const i = href.indexOf("#");
+  if (i === -1) return { path: href, hash: "" };
+  return { path: href.slice(0, i), hash: href.slice(i + 1) };
+}
+
 export function DocsSidebar() {
   const pathname = usePathname();
+  const [hash, setHash] = useState<string>("");
+
+  // Track URL hash (clicks + back/forward) and scroll-spy through page sections.
+  useEffect(() => {
+    const sync = () => setHash(globalThis.location?.hash.replace("#", "") ?? "");
+    sync();
+    globalThis.addEventListener("hashchange", sync);
+
+    // Find candidate section ids from sidebar entries on this pathname
+    const ids = SECTIONS
+      .flatMap((s) => s.items)
+      .filter((i) => splitHref(i.href).path === pathname)
+      .map((i) => splitHref(i.href).hash)
+      .filter(Boolean);
+
+    if (ids.length === 0) {
+      return () => globalThis.removeEventListener("hashchange", sync);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setHash(entry.target.id);
+            return;
+          }
+        }
+      },
+      { rootMargin: "0px 0px -70% 0px", threshold: [0, 1] },
+    );
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => {
+      globalThis.removeEventListener("hashchange", sync);
+      observer.disconnect();
+    };
+  }, [pathname]);
+
+  // Best-match active: prefer items whose path AND hash match; if no hash item
+  // on this path is active yet, the bare-path entry wins.
+  function isActive(itemHref: string) {
+    const { path, hash: itemHash } = splitHref(itemHref);
+    if (path !== pathname) return false;
+    if (itemHash) return hash === itemHash;
+    // Bare-path entry: only "active" when no hash entry on this path matches
+    const sectionItems = SECTIONS.flatMap((s) => s.items);
+    const hasMatchingHash = sectionItems.some((i) => {
+      const sp = splitHref(i.href);
+      return sp.path === pathname && sp.hash && sp.hash === hash;
+    });
+    return !hasMatchingHash;
+  }
+
   return (
     <nav className="flex flex-col gap-7 py-8 pr-6 sticky top-20 max-h-[calc(100vh-5rem)] overflow-y-auto">
       {SECTIONS.map((section) => (
@@ -52,7 +114,7 @@ export function DocsSidebar() {
             {section.title}
           </span>
           {section.items.map((item) => {
-            const active = pathname === item.href;
+            const active = isActive(item.href);
             return (
               <Link
                 key={item.href}

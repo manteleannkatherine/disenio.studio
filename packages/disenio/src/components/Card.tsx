@@ -7,7 +7,7 @@ export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
       ref={ref}
       className={cn(
         "rounded-[var(--ds-radius)] border bg-[var(--ds-paper)] border-[var(--ds-line)]",
-        "shadow-[inset_0_1px_0_color-mix(in_oklab,white_60%,transparent),var(--ds-shadow)]",
+        "shadow-[inset_0_1px_0_var(--ds-surface-highlight),var(--ds-shadow)]",
         "transition-[transform,box-shadow] duration-[var(--ds-duration)] ease-[var(--ds-easing)]",
         className,
       )}

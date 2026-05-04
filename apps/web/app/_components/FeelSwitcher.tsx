@@ -3,7 +3,7 @@ import { FEELS, useTheme, type Feel } from "@disenio/ui";
 
 export function FeelSwitcher() {
   const { feel, setFeel } = useTheme();
-  const order: Feel[] = ["modern", "modernDark", "editorial", "playful", "brutalist", "clinical"];
+  const order: Feel[] = ["modern", "modernDark", "editorial", "playful", "stark", "clinical"];
   return (
     <div className="surface-deep p-1.5 inline-flex gap-1 flex-wrap" style={{ borderRadius: 14 }}>
       {order.map((f) => {

@@ -34,7 +34,7 @@ export default function ThemingPage() {
       <section id="editor" className="flex flex-col gap-5">
         <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Live editor</h2>
         <p className="text-[var(--ds-ink-soft)]">
-          Switch the Feel — Modern, Modern Dark, Editorial, Playful, Brutalist, Clinical — and
+          Switch the Feel — Modern, Modern Dark, Editorial, Playful, Stark, Clinical — and
           watch every page on this site re-tune. Pick an accent. When you like it, copy the CSS.
         </p>
         <div className="surface p-5 flex flex-col gap-5">

@@ -32,7 +32,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         "active:translate-y-[0.5px] hover:-translate-y-[0.5px]",
         "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color-mix(in_oklab,var(--ds-accent)_30%,transparent)]",
         "disabled:opacity-50 disabled:pointer-events-none",
-        "shadow-[0_1px_0_rgba(255,255,255,0.08)_inset,0_8px_18px_-10px_rgba(20,17,15,0.45)]",
+        "shadow-[inset_0_1px_0_var(--ds-surface-highlight),var(--ds-shadow)]",
         variants[variant],
         sizes[size],
         className,

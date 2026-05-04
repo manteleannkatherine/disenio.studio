@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 
-export type Feel = "modern" | "modernDark" | "editorial" | "playful" | "brutalist" | "clinical";
+export type Feel = "modern" | "modernDark" | "editorial" | "playful" | "stark" | "clinical";
 
 export interface FeelTokens {
   radius: string;
@@ -52,18 +52,18 @@ export const FEELS: Record<Feel, { label: string; blurb: string; tokens: FeelTok
       radius: "12px",
       duration: "180ms",
       easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
-      shadow: "0 18px 40px -16px rgba(110,76,242,0.45)",
+      shadow: "none",
       fontSerif: 'Inter, ui-sans-serif, system-ui, "Helvetica Neue", Arial',
       fontSans: 'Inter, ui-sans-serif, system-ui, "Helvetica Neue", Arial',
       letterSpacing: "-0.02em",
       buttonRadius: "10px",
       fieldRadius: "10px",
       paper: "#000000",
-      paperDeep: "#0c0d12",
+      paperDeep: "#0a0a0f",
       ink: "#f6f7fb",
       inkSoft: "#b8bdcd",
       muted: "#6b7186",
-      line: "#1c1e28",
+      line: "#15161d",
     },
   },
   editorial: {
@@ -108,8 +108,8 @@ export const FEELS: Record<Feel, { label: string; blurb: string; tokens: FeelTok
       line: "#e0d3f5",
     },
   },
-  brutalist: {
-    label: "Brutalist",
+  stark: {
+    label: "Stark",
     blurb: "Hard edges, mono type, no apology.",
     tokens: {
       radius: "0px",
@@ -181,6 +181,9 @@ function applyTokens(feel: Feel, accent: string) {
   r.setProperty("--ds-letter-spacing", t.letterSpacing);
   r.setProperty("--ds-button-radius", t.buttonRadius);
   r.setProperty("--ds-field-radius", t.fieldRadius);
+  // Inset highlight rim disappears on dark surfaces — the white sheen reads bad on near-black.
+  const isDarkPaper = isHexDark(t.paper);
+  r.setProperty("--ds-surface-highlight", isDarkPaper ? "transparent" : "color-mix(in oklab, white 60%, transparent)");
   r.setProperty("--ds-accent", accent);
   // accent-ink: pick black or paper based on luminance
   const ink = readableInk(accent);
@@ -214,6 +217,17 @@ export function decodeThemeHash(hash: string): { feel: Feel; accent: string } | 
   } catch {
     return null;
   }
+}
+
+function isHexDark(hex: string) {
+  const h = hex.replace("#", "");
+  if (h.length < 3) return false;
+  const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+  const r = Number.parseInt(full.slice(0, 2), 16);
+  const g = Number.parseInt(full.slice(2, 4), 16);
+  const b = Number.parseInt(full.slice(4, 6), 16);
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return lum < 0.4;
 }
 
 function readableInk(hex: string) {
