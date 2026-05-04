@@ -7,9 +7,20 @@ const SECTIONS = [
     title: "Getting Started",
     items: [
       { href: "/docs", label: "Introduction" },
+      { href: "/docs/setup", label: "Set up with your stack" },
       { href: "/docs/installation", label: "Installation" },
       { href: "/docs/cli", label: "CLI" },
       { href: "/docs/theming", label: "Theming" },
+    ],
+  },
+  {
+    title: "Pairs",
+    items: [
+      { href: "/docs/pairs", label: "Why pairs" },
+      { href: "/docs/pairs#form-field", label: "FormField" },
+      { href: "/docs/pairs#toolbar", label: "Toolbar" },
+      { href: "/docs/pairs#empty-state", label: "EmptyState" },
+      { href: "/docs/pairs#stat-card", label: "StatCard" },
     ],
   },
   {
@@ -21,6 +32,7 @@ const SECTIONS = [
       { href: "/docs/components/card", label: "Card" },
       { href: "/docs/components/dialog", label: "Dialog" },
       { href: "/docs/components/input", label: "Input" },
+      { href: "/docs/components/layout", label: "Layout" },
       { href: "/docs/components/select", label: "Select" },
       { href: "/docs/components/switch", label: "Switch" },
       { href: "/docs/components/tabs", label: "Tabs" },

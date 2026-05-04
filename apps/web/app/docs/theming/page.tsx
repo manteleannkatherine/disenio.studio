@@ -2,6 +2,7 @@ import { PageHeader } from "../../_components/docs/PageHeader";
 import { FeelSwitcher } from "../../_components/FeelSwitcher";
 import { AccentPicker } from "../../_components/AccentPicker";
 import { ThemeExport } from "../../_components/ThemeExport";
+import { ShareThemeButton } from "../../_components/ShareThemeButton";
 import { CodeBlock } from "../../_components/docs/CodeBlock";
 
 const TOKENS = [
@@ -39,6 +40,12 @@ export default function ThemingPage() {
         <div className="surface p-5 flex flex-col gap-5">
           <FeelSwitcher />
           <AccentPicker />
+          <div className="flex items-center justify-between flex-wrap gap-3 pt-2 border-t hairline">
+            <span className="text-sm text-[var(--ds-ink-soft)]">
+              Like what you made? Share it as a URL — anyone who opens the link sees the entire site in your theme.
+            </span>
+            <ShareThemeButton />
+          </div>
         </div>
       </section>
 

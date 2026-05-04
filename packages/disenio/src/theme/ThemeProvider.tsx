@@ -187,6 +187,35 @@ function applyTokens(feel: Feel, accent: string) {
   r.setProperty("--ds-accent-ink", ink);
 }
 
+/* ──────────────  Share-link encoding  ────────────── */
+
+function toBase64Url(s: string) {
+  if (typeof btoa !== "undefined") return btoa(s).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+  // node fallback
+  return Buffer.from(s).toString("base64url");
+}
+function fromBase64Url(s: string) {
+  const padded = s.replaceAll("-", "+").replaceAll("_", "/") + "===".slice((s.length + 3) % 4);
+  if (typeof atob !== "undefined") return atob(padded);
+  return Buffer.from(s, "base64url").toString("utf8");
+}
+
+export function encodeThemeHash(state: { feel: Feel; accent: string }): string {
+  return toBase64Url(JSON.stringify([state.feel, state.accent]));
+}
+
+export function decodeThemeHash(hash: string): { feel: Feel; accent: string } | null {
+  try {
+    const decoded = JSON.parse(fromBase64Url(hash));
+    if (!Array.isArray(decoded) || decoded.length !== 2) return null;
+    const [feel, accent] = decoded;
+    if (!(feel in FEELS) || typeof accent !== "string") return null;
+    return { feel: feel as Feel, accent };
+  } catch {
+    return null;
+  }
+}
+
 function readableInk(hex: string) {
   const h = hex.replace("#", "");
   const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
@@ -208,6 +237,19 @@ export function ThemeProvider({
 }) {
   const [feel, setFeelState] = React.useState<Feel>(defaultFeel);
   const [accent, setAccentState] = React.useState<string>(defaultAccent);
+
+  // Read shared theme from URL once on mount
+  React.useEffect(() => {
+    if (globalThis.window === undefined) return;
+    const params = new URLSearchParams(globalThis.location.search);
+    const hash = params.get("t");
+    if (!hash) return;
+    const decoded = decodeThemeHash(hash);
+    if (decoded) {
+      setFeelState(decoded.feel);
+      setAccentState(decoded.accent);
+    }
+  }, []);
 
   React.useEffect(() => {
     applyTokens(feel, accent);

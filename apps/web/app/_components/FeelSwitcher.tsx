@@ -5,7 +5,7 @@ export function FeelSwitcher() {
   const { feel, setFeel } = useTheme();
   const order: Feel[] = ["modern", "modernDark", "editorial", "playful", "brutalist", "clinical"];
   return (
-    <div className="surface-deep p-1.5 inline-flex gap-1 flex-wrap" style={{ borderRadius: 999 }}>
+    <div className="surface-deep p-1.5 inline-flex gap-1 flex-wrap" style={{ borderRadius: 14 }}>
       {order.map((f) => {
         const active = feel === f;
         return (

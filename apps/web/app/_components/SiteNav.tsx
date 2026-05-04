@@ -15,6 +15,7 @@ export function SiteNav() {
         <nav className="hidden md:flex items-center gap-7 text-sm text-[var(--ds-ink-soft)]">
           <Link href="/docs" className="hover:text-[var(--ds-ink)] transition-colors">Docs</Link>
           <Link href="/docs/components" className="hover:text-[var(--ds-ink)] transition-colors">Components</Link>
+          <Link href="/docs/pairs" className="hover:text-[var(--ds-ink)] transition-colors">Pairs</Link>
           <Link href="/docs/theming" className="hover:text-[var(--ds-ink)] transition-colors">Theming</Link>
           <Link href="/#pricing" className="hover:text-[var(--ds-ink)] transition-colors">Pricing</Link>
         </nav>

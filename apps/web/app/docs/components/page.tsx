@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, Input, Textarea, Badge, Card, CardHeader, CardTitle, CardDescription, Switch, Tabs, TabsList, TabsTrigger } from "@disenio/ui";
+import { Button, Input, Textarea, Badge, Card, CardHeader, CardTitle, CardDescription, Switch, Tabs, TabsList, TabsTrigger, Stack, Cluster } from "@disenio/ui";
 import { PageHeader } from "../../_components/docs/PageHeader";
 
 const ITEMS = [
@@ -43,6 +43,25 @@ const ITEMS = [
     name: "Input",
     desc: "Single-line text field with label, hint, error states.",
     preview: <Input placeholder="hola@disenio.io" className="!h-9" />,
+  },
+  {
+    href: "/docs/components/layout",
+    name: "Layout",
+    desc: "Stack, Cluster, Switcher, Sidebar, Center, Grid, Spacer, Divider — 8 in one.",
+    preview: (
+      <Stack gap="xs" className="w-full max-w-[180px]">
+        <Cluster gap="xs">
+          <span className="surface-deep h-5 flex-1 rounded-sm" />
+          <span className="surface-deep h-5 flex-1 rounded-sm" />
+        </Cluster>
+        <span className="surface-deep h-5 w-full rounded-sm" />
+        <Cluster gap="xs">
+          <span className="surface-deep h-5 flex-1 rounded-sm" />
+          <span className="surface-deep h-5 flex-1 rounded-sm" />
+          <span className="surface-deep h-5 flex-1 rounded-sm" />
+        </Cluster>
+      </Stack>
+    ),
   },
   {
     href: "/docs/components/select",

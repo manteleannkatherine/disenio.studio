@@ -1,7 +1,7 @@
 {
   "name": "@disenio/ui",
   "version": "0.0.1",
-  "description": "Diseño — a copy-paste design toolkit. Editorial, customizable, yours.",
+  "description": "Disenio — a copy-paste design toolkit. Editorial, customizable, yours.",
   "license": "MIT",
   "type": "module",
   "main": "./src/index.ts",

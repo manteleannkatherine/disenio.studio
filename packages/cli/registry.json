@@ -5,6 +5,7 @@
     {
       "id": "badge",
       "name": "Badge",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -18,6 +19,7 @@
     {
       "id": "button",
       "name": "Button",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -31,6 +33,7 @@
     {
       "id": "card",
       "name": "Card",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -44,6 +47,7 @@
     {
       "id": "dialog",
       "name": "Dialog",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -57,6 +61,7 @@
     {
       "id": "input",
       "name": "Input",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -68,8 +73,23 @@
       ]
     },
     {
+      "id": "layout",
+      "name": "Layout",
+      "kind": "component",
+      "deps": [
+        "utils/cn"
+      ],
+      "files": [
+        {
+          "path": "components/ui/layout.tsx",
+          "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/cn\";\n\n/**\n * Disenio layout primitives — composable, semantic, theme-aware.\n *\n *   Stack     vertical with consistent gap\n *   Cluster   horizontal wrap with gap, alignment, justification\n *   Switcher  row above threshold, stack below\n *   Sidebar   sidebar + content, stacks responsively\n *   Center    constrain max-width and center\n *   Grid      responsive auto-fit grid\n *   Spacer    grows to fill flex space\n *   Divider   horizontal or vertical hairline\n */\n\ntype Gap = \"none\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | number | string;\n\nconst GAP_SCALE: Record<Exclude<Gap, number | string>, string> = {\n  none: \"0\",\n  xs: \"0.25rem\",\n  sm: \"0.5rem\",\n  md: \"1rem\",\n  lg: \"1.5rem\",\n  xl: \"2.5rem\",\n  \"2xl\": \"4rem\",\n};\n\nfunction resolveGap(g: Gap | undefined): string | undefined {\n  if (g === undefined) return undefined;\n  if (typeof g === \"number\") return `${g}px`;\n  if (typeof g === \"string\" && !(g in GAP_SCALE)) return g;\n  return GAP_SCALE[g as keyof typeof GAP_SCALE];\n}\n\n/* ────────────────────────────  Stack  ──────────────────────────── */\nexport interface StackProps extends React.HTMLAttributes<HTMLDivElement> {\n  as?: keyof React.JSX.IntrinsicElements;\n  gap?: Gap;\n  align?: \"start\" | \"center\" | \"end\" | \"stretch\";\n}\nexport const Stack = React.forwardRef<HTMLDivElement, StackProps>(\n  ({ as: Tag = \"div\", gap = \"md\", align, className, style, ...props }, ref) => {\n    const Component = Tag as React.ElementType;\n    return (\n      <Component\n        ref={ref}\n        className={cn(\"flex flex-col\", className)}\n        style={{ gap: resolveGap(gap), alignItems: align, ...style }}\n        {...props}\n      />\n    );\n  },\n);\nStack.displayName = \"Stack\";\n\n/* ────────────────────────────  Cluster  ──────────────────────────── */\nexport interface ClusterProps extends React.HTMLAttributes<HTMLDivElement> {\n  as?: keyof React.JSX.IntrinsicElements;\n  gap?: Gap;\n  align?: \"start\" | \"center\" | \"end\" | \"baseline\" | \"stretch\";\n  justify?: \"start\" | \"center\" | \"end\" | \"between\" | \"around\" | \"evenly\";\n  wrap?: boolean;\n}\nconst JUSTIFY = {\n  start: \"flex-start\",\n  center: \"center\",\n  end: \"flex-end\",\n  between: \"space-between\",\n  around: \"space-around\",\n  evenly: \"space-evenly\",\n} as const;\nconst ALIGN = {\n  start: \"flex-start\",\n  center: \"center\",\n  end: \"flex-end\",\n  baseline: \"baseline\",\n  stretch: \"stretch\",\n} as const;\nexport const Cluster = React.forwardRef<HTMLDivElement, ClusterProps>(\n  ({ as: Tag = \"div\", gap = \"md\", align = \"center\", justify = \"start\", wrap = true, className, style, ...props }, ref) => {\n    const Component = Tag as React.ElementType;\n    return (\n      <Component\n        ref={ref}\n        className={cn(\"flex\", className)}\n        style={{\n          gap: resolveGap(gap),\n          alignItems: ALIGN[align],\n          justifyContent: JUSTIFY[justify],\n          flexWrap: wrap ? \"wrap\" : \"nowrap\",\n          ...style,\n        }}\n        {...props}\n      />\n    );\n  },\n);\nCluster.displayName = \"Cluster\";\n\n/* ────────────────────────────  Switcher  ──────────────────────────── */\nexport interface SwitcherProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** Below this width, items stack. Above, they share a row. */\n  threshold?: string;\n  gap?: Gap;\n  /** Soft cap on items per row. */\n  limit?: number;\n}\nexport const Switcher = React.forwardRef<HTMLDivElement, SwitcherProps>(\n  ({ threshold = \"30rem\", gap = \"md\", limit = 4, className, style, ...props }, ref) => {\n    const g = resolveGap(gap) ?? \"1rem\";\n    return (\n      <div\n        ref={ref}\n        className={cn(\"flex flex-wrap\", className)}\n        style={\n          {\n            gap: g,\n            [\"--ds-switcher-threshold\" as string]: threshold,\n            [\"--ds-switcher-limit\" as string]: String(limit),\n            ...style,\n          } as React.CSSProperties\n        }\n        {...props}\n      >\n        {React.Children.map(props.children, (child) => (\n          <div\n            style={{\n              flexBasis: `calc((${threshold} - 100%) * 999)`,\n              flexGrow: 1,\n            }}\n          >\n            {child}\n          </div>\n        ))}\n      </div>\n    );\n  },\n);\nSwitcher.displayName = \"Switcher\";\n\n/* ────────────────────────────  Sidebar  ──────────────────────────── */\nexport interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** \"left\" places the first child as the side; \"right\" the second. */\n  side?: \"left\" | \"right\";\n  sideWidth?: string;\n  /** Min width the content column must keep before the layout collapses. */\n  contentMin?: string;\n  gap?: Gap;\n  noStretch?: boolean;\n}\nexport const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(\n  (\n    { side = \"left\", sideWidth = \"var(--ds-sidebar-width, 18rem)\", contentMin = \"50%\", gap = \"md\", noStretch, className, style, children, ...props },\n    ref,\n  ) => {\n    const items = React.Children.toArray(children);\n    if (items.length !== 2) {\n      // graceful fallback — render as a stack if not exactly 2 children\n      return (\n        <Stack ref={ref as React.Ref<HTMLDivElement>} className={className} style={style} gap={gap} {...props}>\n          {children}\n        </Stack>\n      );\n    }\n    const [first, second] = items;\n    const sideEl = side === \"left\" ? first : second;\n    const mainEl = side === \"left\" ? second : first;\n    return (\n      <div\n        ref={ref}\n        className={cn(\"flex flex-wrap\", className)}\n        style={{ gap: resolveGap(gap), alignItems: noStretch ? \"flex-start\" : \"stretch\", ...style }}\n        {...props}\n      >\n        <div style={{ flexBasis: sideWidth, flexGrow: 1 }}>{sideEl}</div>\n        <div style={{ flexBasis: 0, flexGrow: 999, minInlineSize: contentMin }}>{mainEl}</div>\n      </div>\n    );\n  },\n);\nSidebar.displayName = \"Sidebar\";\n\n/* ────────────────────────────  Center  ──────────────────────────── */\nexport interface CenterProps extends React.HTMLAttributes<HTMLDivElement> {\n  as?: keyof React.JSX.IntrinsicElements;\n  /** Max-width. Accepts a token (\"prose\"|\"narrow\"|\"wide\") or any CSS length. */\n  max?: \"narrow\" | \"prose\" | \"wide\" | string;\n  /** Horizontal padding. */\n  pad?: Gap;\n  /** Center child text horizontally too. */\n  text?: boolean;\n}\nconst MAX_PRESETS: Record<\"narrow\" | \"prose\" | \"wide\", string> = {\n  narrow: \"32rem\",\n  prose: \"65ch\",\n  wide: \"72rem\",\n};\nexport const Center = React.forwardRef<HTMLDivElement, CenterProps>(\n  ({ as: Tag = \"div\", max = \"prose\", pad = \"md\", text = false, className, style, ...props }, ref) => {\n    const Component = Tag as React.ElementType;\n    const maxW = (MAX_PRESETS as Record<string, string>)[max as string] ?? max;\n    return (\n      <Component\n        ref={ref}\n        className={cn(\"mx-auto box-content\", className)}\n        style={{\n          maxInlineSize: maxW,\n          paddingInline: resolveGap(pad),\n          textAlign: text ? \"center\" : undefined,\n          ...style,\n        }}\n        {...props}\n      />\n    );\n  },\n);\nCenter.displayName = \"Center\";\n\n/* ────────────────────────────  Grid  ──────────────────────────── */\nexport interface GridProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** Min width for an auto-sized column. */\n  min?: string;\n  gap?: Gap;\n}\nexport const Grid = React.forwardRef<HTMLDivElement, GridProps>(\n  ({ min = \"16rem\", gap = \"md\", className, style, ...props }, ref) => (\n    <div\n      ref={ref}\n      className={cn(\"grid\", className)}\n      style={{\n        gap: resolveGap(gap),\n        gridTemplateColumns: `repeat(auto-fit, minmax(min(${min}, 100%), 1fr))`,\n        ...style,\n      }}\n      {...props}\n    />\n  ),\n);\nGrid.displayName = \"Grid\";\n\n/* ────────────────────────────  Spacer  ──────────────────────────── */\nexport interface SpacerProps extends React.HTMLAttributes<HTMLDivElement> {\n  size?: Gap;\n}\nexport const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(\n  ({ size, className, style, ...props }, ref) => (\n    <div\n      ref={ref}\n      aria-hidden\n      className={cn(size === undefined && \"flex-1\", className)}\n      style={size !== undefined ? { flexBasis: resolveGap(size), flexShrink: 0, ...style } : style}\n      {...props}\n    />\n  ),\n);\nSpacer.displayName = \"Spacer\";\n\n/* ────────────────────────────  Divider  ──────────────────────────── */\nexport interface DividerProps extends React.HTMLAttributes<HTMLHRElement | HTMLDivElement> {\n  orientation?: \"horizontal\" | \"vertical\";\n  label?: React.ReactNode;\n}\nexport function Divider({ orientation = \"horizontal\", label, className, style, ...props }: DividerProps) {\n  if (label && orientation === \"horizontal\") {\n    return (\n      <div\n        role=\"separator\"\n        className={cn(\"flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-[var(--ds-muted)] mono\", className)}\n        style={style}\n      >\n        <span className=\"flex-1 h-px bg-[var(--ds-line)]\" />\n        <span>{label}</span>\n        <span className=\"flex-1 h-px bg-[var(--ds-line)]\" />\n      </div>\n    );\n  }\n  if (orientation === \"vertical\") {\n    return (\n      <div\n        role=\"separator\"\n        aria-orientation=\"vertical\"\n        className={cn(\"self-stretch w-px bg-[var(--ds-line)]\", className)}\n        style={style}\n        {...(props as React.HTMLAttributes<HTMLDivElement>)}\n      />\n    );\n  }\n  return (\n    <hr\n      className={cn(\"border-0 h-px bg-[var(--ds-line)]\", className)}\n      style={style}\n      {...(props as React.HTMLAttributes<HTMLHRElement>)}\n    />\n  );\n}\n"
+        }
+      ]
+    },
+    {
       "id": "select",
       "name": "Select",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -83,6 +103,7 @@
     {
       "id": "switch",
       "name": "Switch",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -96,6 +117,7 @@
     {
       "id": "tabs",
       "name": "Tabs",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -109,6 +131,7 @@
     {
       "id": "textarea",
       "name": "Textarea",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -122,6 +145,7 @@
     {
       "id": "toast",
       "name": "Toast",
+      "kind": "component",
       "deps": [
         "utils/cn"
       ],
@@ -129,6 +153,64 @@
         {
           "path": "components/ui/toast.tsx",
           "content": "\"use client\";\nimport * as React from \"react\";\nimport { createPortal } from \"react-dom\";\nimport { cn } from \"@/lib/cn\";\n\nexport interface Toast {\n  id: string;\n  title?: string;\n  description?: string;\n  tone?: \"neutral\" | \"accent\" | \"danger\";\n  duration?: number;\n}\n\ninterface ToastCtx {\n  toast: (t: Omit<Toast, \"id\"> & { id?: string }) => string;\n  dismiss: (id: string) => void;\n}\n\nconst ToastContext = React.createContext<ToastCtx | null>(null);\n\nexport function ToastProvider({ children }: { children: React.ReactNode }) {\n  const [toasts, setToasts] = React.useState<Toast[]>([]);\n  const [mounted, setMounted] = React.useState(false);\n\n  React.useEffect(() => setMounted(true), []);\n\n  const dismiss = React.useCallback((id: string) => {\n    setToasts((curr) => curr.filter((t) => t.id !== id));\n  }, []);\n\n  const toast = React.useCallback<ToastCtx[\"toast\"]>(\n    (t) => {\n      const id = t.id ?? Math.random().toString(36).slice(2);\n      const duration = t.duration ?? 4000;\n      setToasts((curr) => [...curr, { ...t, id }]);\n      if (duration > 0) {\n        setTimeout(() => dismiss(id), duration);\n      }\n      return id;\n    },\n    [dismiss],\n  );\n\n  const value = React.useMemo(() => ({ toast, dismiss }), [toast, dismiss]);\n\n  return (\n    <ToastContext.Provider value={value}>\n      {children}\n      {mounted &&\n        createPortal(\n          <div className=\"fixed bottom-4 right-4 z-[100] flex flex-col gap-2 w-[360px] max-w-[calc(100vw-2rem)] pointer-events-none\">\n            {toasts.map((t) => (\n              <ToastItem key={t.id} toast={t} onDismiss={() => dismiss(t.id)} />\n            ))}\n          </div>,\n          document.body,\n        )}\n    </ToastContext.Provider>\n  );\n}\n\nfunction ToastItem({ toast: t, onDismiss }: { toast: Toast; onDismiss: () => void }) {\n  const tones = {\n    neutral: \"border-[var(--ds-line)]\",\n    accent: \"border-[var(--ds-accent)]\",\n    danger: \"border-red-500\",\n  };\n  const dot = {\n    neutral: \"bg-[var(--ds-muted)]\",\n    accent: \"bg-[var(--ds-accent)]\",\n    danger: \"bg-red-500\",\n  };\n  return (\n    <div\n      role=\"status\"\n      className={cn(\n        \"pointer-events-auto rounded-[var(--ds-radius)] border bg-[var(--ds-paper)] p-4 shadow-[var(--ds-shadow)]\",\n        \"flex items-start gap-3 animate-[slideUp_180ms_var(--ds-easing)]\",\n        tones[t.tone ?? \"neutral\"],\n      )}\n    >\n      <span className={cn(\"size-2 mt-2 rounded-full shrink-0\", dot[t.tone ?? \"neutral\"])} />\n      <div className=\"flex-1 min-w-0\">\n        {t.title && <div className=\"font-medium text-[var(--ds-ink)]\">{t.title}</div>}\n        {t.description && <div className=\"text-sm text-[var(--ds-ink-soft)] mt-0.5\">{t.description}</div>}\n      </div>\n      <button\n        onClick={onDismiss}\n        className=\"text-[var(--ds-muted)] hover:text-[var(--ds-ink)] transition-colors text-lg leading-none\"\n        aria-label=\"Dismiss\"\n      >\n        ×\n      </button>\n    </div>\n  );\n}\n\nexport function useToast() {\n  const ctx = React.useContext(ToastContext);\n  if (!ctx) throw new Error(\"useToast must be used inside <ToastProvider>\");\n  return ctx;\n}\n"
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "kind": "pair",
+      "deps": [
+        "utils/cn"
+      ],
+      "files": [
+        {
+          "path": "components/ui/empty-state.tsx",
+          "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/cn\";\n\n/**\n * EmptyState — the placeholder you ship instead of a blank screen.\n *\n *   <EmptyState\n *     title=\"No components yet\"\n *     description=\"Run `disenio add button` to install your first one.\"\n *     action={<Button variant=\"accent\" size=\"sm\">Browse components</Button>}\n *   />\n *\n * Pass a custom illustration via `art` (defaults to a Feel-aware geometric mark).\n */\n\nexport interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"title\"> {\n  title: React.ReactNode;\n  description?: React.ReactNode;\n  action?: React.ReactNode;\n  art?: React.ReactNode;\n  size?: \"sm\" | \"md\" | \"lg\";\n}\n\nexport const EmptyState = React.forwardRef<HTMLDivElement, EmptyStateProps>(\n  ({ title, description, action, art, size = \"md\", className, ...props }, ref) => {\n    const sizes = {\n      sm: { pad: \"p-6\", art: 48, gap: \"gap-2\", title: \"text-base\" },\n      md: { pad: \"p-10\", art: 72, gap: \"gap-3\", title: \"text-lg\" },\n      lg: { pad: \"p-14\", art: 96, gap: \"gap-4\", title: \"text-xl\" },\n    } as const;\n    const s = sizes[size];\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"flex flex-col items-center text-center rounded-[var(--ds-radius)] border bg-[var(--ds-paper)] border-[var(--ds-line)]\",\n          s.pad,\n          s.gap,\n          className,\n        )}\n        {...props}\n      >\n        <div aria-hidden className=\"text-[var(--ds-muted)]\">\n          {art ?? <DefaultEmptyArt size={s.art} />}\n        </div>\n        <div className={cn(\"font-semibold tracking-[-0.01em] text-[var(--ds-ink)]\", s.title)}>{title}</div>\n        {description && (\n          <div className=\"text-sm text-[var(--ds-ink-soft)] max-w-[44ch]\">{description}</div>\n        )}\n        {action && <div className=\"pt-2\">{action}</div>}\n      </div>\n    );\n  },\n);\nEmptyState.displayName = \"EmptyState\";\n\nfunction DefaultEmptyArt({ size }: { size: number }) {\n  return (\n    <svg width={size} height={size} viewBox=\"0 0 64 64\" fill=\"none\">\n      <rect\n        x=\"10\"\n        y=\"14\"\n        width=\"44\"\n        height=\"36\"\n        rx=\"6\"\n        stroke=\"currentColor\"\n        strokeWidth=\"2\"\n        strokeDasharray=\"4 4\"\n        opacity=\"0.5\"\n      />\n      <circle cx=\"32\" cy=\"32\" r=\"8\" stroke=\"currentColor\" strokeWidth=\"2\" opacity=\"0.7\" />\n      <path d=\"M28 32 L32 36 L40 28\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\" opacity=\"0.7\" />\n    </svg>\n  );\n}\n"
+        }
+      ]
+    },
+    {
+      "id": "form-field",
+      "name": "FormField",
+      "kind": "pair",
+      "deps": [
+        "utils/cn"
+      ],
+      "files": [
+        {
+          "path": "components/ui/form-field.tsx",
+          "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/cn\";\n\n/**\n * FormField — the canonical pair: label + control + hint/error.\n *\n *   <FormField label=\"Email\" hint=\"We never share\">\n *     <Input placeholder=\"hola@disenio.io\" />\n *   </FormField>\n *\n * Renders a `<label>` wrapping the control region so clicking the label focuses\n * the first focusable child. Use `error` to flip color + a11y wiring.\n */\n\nexport interface FormFieldProps extends Omit<React.LabelHTMLAttributes<HTMLLabelElement>, \"children\"> {\n  label?: React.ReactNode;\n  hint?: React.ReactNode;\n  error?: React.ReactNode;\n  required?: boolean;\n  children: React.ReactNode;\n  /** Render label/hint side-by-side with the control instead of stacked. */\n  inline?: boolean;\n}\n\nexport const FormField = React.forwardRef<HTMLLabelElement, FormFieldProps>(\n  ({ label, hint, error, required, inline, className, children, ...props }, ref) => {\n    const hintId = React.useId();\n    const errorId = React.useId();\n    const described = error ? errorId : hint ? hintId : undefined;\n\n    const control = React.Children.map(children, (child) =>\n      React.isValidElement(child)\n        ? React.cloneElement(child as React.ReactElement<{ \"aria-describedby\"?: string; \"aria-invalid\"?: boolean }>, {\n            \"aria-describedby\": described,\n            \"aria-invalid\": Boolean(error) || undefined,\n          })\n        : child,\n    );\n\n    return (\n      <label\n        ref={ref}\n        className={cn(\n          \"flex gap-2\",\n          inline ? \"flex-row items-center justify-between\" : \"flex-col\",\n          className,\n        )}\n        {...props}\n      >\n        {label && (\n          <span className=\"text-xs uppercase tracking-[0.12em] text-[var(--ds-ink-soft)]\">\n            {label}\n            {required && <span className=\"ml-1 text-[var(--ds-accent)]\">*</span>}\n          </span>\n        )}\n        <div className={cn(\"flex flex-col gap-1.5\", inline && \"flex-1\")}>\n          {control}\n          {error ? (\n            <span id={errorId} className=\"text-xs text-[var(--ds-accent)]\">\n              {error}\n            </span>\n          ) : hint ? (\n            <span id={hintId} className=\"text-xs text-[var(--ds-muted)]\">\n              {hint}\n            </span>\n          ) : null}\n        </div>\n      </label>\n    );\n  },\n);\nFormField.displayName = \"FormField\";\n"
+        }
+      ]
+    },
+    {
+      "id": "stat-card",
+      "name": "StatCard",
+      "kind": "pair",
+      "deps": [
+        "utils/cn"
+      ],
+      "files": [
+        {
+          "path": "components/ui/stat-card.tsx",
+          "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/cn\";\n\n/**\n * StatCard — the dashboard pair: label + big value + delta.\n *\n *   <StatCard label=\"Installs (7d)\" value=\"1,284\" delta=\"+18%\" />\n */\n\nexport interface StatCardProps extends React.HTMLAttributes<HTMLDivElement> {\n  label: React.ReactNode;\n  value: React.ReactNode;\n  delta?: React.ReactNode;\n  /** Force the delta tint regardless of leading sign. */\n  trend?: \"up\" | \"down\" | \"flat\";\n  hint?: React.ReactNode;\n  icon?: React.ReactNode;\n}\n\nfunction inferTrend(delta: React.ReactNode): \"up\" | \"down\" | \"flat\" {\n  if (typeof delta !== \"string\") return \"flat\";\n  const s = delta.trim();\n  if (s.startsWith(\"+\")) return \"up\";\n  if (s.startsWith(\"-\") || s.startsWith(\"−\")) return \"down\";\n  return \"flat\";\n}\n\nexport const StatCard = React.forwardRef<HTMLDivElement, StatCardProps>(\n  ({ label, value, delta, trend, hint, icon, className, ...props }, ref) => {\n    const t = trend ?? inferTrend(delta);\n    const tints = {\n      up: \"text-[var(--ds-accent)]\",\n      down: \"text-red-500\",\n      flat: \"text-[var(--ds-muted)]\",\n    } as const;\n    const arrow = { up: \"↗\", down: \"↘\", flat: \"→\" } as const;\n    return (\n      <div\n        ref={ref}\n        className={cn(\n          \"flex flex-col gap-2 p-4 rounded-[var(--ds-radius)] border bg-[var(--ds-paper)] border-[var(--ds-line)]\",\n          \"shadow-[inset_0_1px_0_color-mix(in_oklab,white_60%,transparent),var(--ds-shadow)]\",\n          className,\n        )}\n        {...props}\n      >\n        <div className=\"flex items-center justify-between\">\n          <span className=\"mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]\">\n            {label}\n          </span>\n          {icon && <span className=\"text-[var(--ds-muted)]\">{icon}</span>}\n        </div>\n        <span className=\"serif text-3xl tracking-[-0.02em] font-semibold text-[var(--ds-ink)]\">\n          {value}\n        </span>\n        <div className=\"flex items-center justify-between min-h-[1rem]\">\n          {delta && (\n            <span className={cn(\"mono text-xs flex items-center gap-1\", tints[t])}>\n              <span aria-hidden>{arrow[t]}</span>\n              {delta}\n            </span>\n          )}\n          {hint && <span className=\"text-xs text-[var(--ds-muted)]\">{hint}</span>}\n        </div>\n      </div>\n    );\n  },\n);\nStatCard.displayName = \"StatCard\";\n"
+        }
+      ]
+    },
+    {
+      "id": "toolbar",
+      "name": "Toolbar",
+      "kind": "pair",
+      "deps": [
+        "utils/cn"
+      ],
+      "files": [
+        {
+          "path": "components/ui/toolbar.tsx",
+          "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/cn\";\n\n/**\n * Toolbar — search + filters + actions, all aligned in one row that wraps.\n *\n *   <Toolbar>\n *     <Toolbar.Search placeholder=\"Search components\" />\n *     <Toolbar.Filters>\n *       <Badge>active</Badge>\n *     </Toolbar.Filters>\n *     <Toolbar.Actions>\n *       <Button>+ New</Button>\n *     </Toolbar.Actions>\n *   </Toolbar>\n *\n * The slots auto-arrange: Search anchors left, Filters in the middle (pushable),\n * Actions stick to the right via flex-grow.\n */\n\ninterface ToolbarProps extends React.HTMLAttributes<HTMLDivElement> {\n  as?: keyof React.JSX.IntrinsicElements;\n}\n\nexport const Toolbar = Object.assign(\n  React.forwardRef<HTMLDivElement, ToolbarProps>(\n    ({ as: Tag = \"div\", className, children, ...props }, ref) => {\n      const Component = Tag as React.ElementType;\n      return (\n        <Component\n          ref={ref}\n          role=\"toolbar\"\n          className={cn(\n            \"flex flex-wrap items-center gap-3 p-2 rounded-[var(--ds-radius)] border bg-[var(--ds-paper)] border-[var(--ds-line)]\",\n            className,\n          )}\n          {...props}\n        >\n          {children}\n        </Component>\n      );\n    },\n  ),\n  {\n    Search: ToolbarSearch,\n    Filters: ToolbarFilters,\n    Actions: ToolbarActions,\n    Divider: ToolbarDivider,\n  },\n);\n\n(Toolbar as React.ForwardRefExoticComponent<unknown>).displayName = \"Toolbar\";\n\nfunction ToolbarSearch({ className, ...props }: React.InputHTMLAttributes<HTMLInputElement>) {\n  return (\n    <div className=\"relative flex-1 min-w-[180px]\">\n      <span aria-hidden className=\"absolute left-3 top-1/2 -translate-y-1/2 text-[var(--ds-muted)] text-sm\">\n        ⌕\n      </span>\n      <input\n        type=\"search\"\n        className={cn(\n          \"w-full h-9 pl-8 pr-3 rounded-[var(--ds-field-radius)] border bg-[var(--ds-paper)] border-[var(--ds-line)]\",\n          \"text-sm text-[var(--ds-ink)] placeholder:text-[var(--ds-muted)]\",\n          \"outline-none transition-[border-color,box-shadow] duration-150\",\n          \"focus:border-[var(--ds-ink)] focus:shadow-[0_0_0_4px_color-mix(in_oklab,var(--ds-accent)_25%,transparent)]\",\n          className,\n        )}\n        {...props}\n      />\n    </div>\n  );\n}\nToolbarSearch.displayName = \"Toolbar.Search\";\n\nfunction ToolbarFilters({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div className={cn(\"flex items-center gap-2 flex-wrap\", className)} {...props}>\n      {children}\n    </div>\n  );\n}\nToolbarFilters.displayName = \"Toolbar.Filters\";\n\nfunction ToolbarActions({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div className={cn(\"flex items-center gap-2 ml-auto\", className)} {...props}>\n      {children}\n    </div>\n  );\n}\nToolbarActions.displayName = \"Toolbar.Actions\";\n\nfunction ToolbarDivider() {\n  return <div aria-hidden className=\"self-stretch w-px bg-[var(--ds-line)]\" />;\n}\nToolbarDivider.displayName = \"Toolbar.Divider\";\n"
         }
       ]
     }

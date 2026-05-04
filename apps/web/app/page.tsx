@@ -4,6 +4,7 @@ import { AccentPicker } from "./_components/AccentPicker";
 import { ThemeExport } from "./_components/ThemeExport";
 import { ComponentShowcase } from "./_components/ComponentShowcase";
 import { BrandLockup } from "./_components/BrandMark";
+import { ShareThemeButton } from "./_components/ShareThemeButton";
 
 export default function Home() {
   return (
@@ -71,12 +72,15 @@ export default function Home() {
               <div className="border-t hairline pt-4">
                 <ThemeExport />
               </div>
-              <a
-                href="/docs/theming"
-                className="text-xs mono uppercase tracking-wider text-[var(--ds-ink-soft)] hover:text-[var(--ds-ink)] transition-colors text-center"
-              >
-                Full theme docs →
-              </a>
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <a
+                  href="/docs/theming"
+                  className="text-xs mono uppercase tracking-wider text-[var(--ds-ink-soft)] hover:text-[var(--ds-ink)] transition-colors"
+                >
+                  Full theme docs →
+                </a>
+                <ShareThemeButton />
+              </div>
             </div>
           </div>
         </div>

@@ -19,12 +19,12 @@ const COMMANDS = [
     desc: "Print your current theme tokens to stdout. Useful for committing theme snapshots.",
   },
   {
-    cmd: "disenio diff",
-    desc: "Compare your local component copies against the upstream registry. See what changed.",
+    cmd: "disenio diff [id...]",
+    desc: "Compare local copies against upstream + your lockfile. Classifies each file as in-sync, local-edit, upstream-update, or both.",
   },
   {
-    cmd: "disenio update <component>",
-    desc: "Pull the latest upstream version of a component into your repo. Three-way merge if you've edited it.",
+    cmd: "disenio update [id...]",
+    desc: "Pull the latest upstream into your repo. Refuses to clobber locally-edited files unless --force is passed.",
   },
 ];
 
@@ -35,7 +35,7 @@ export default function CliPage() {
         eyebrow="Getting Started"
         title="CLI reference"
         description="The disenio CLI is the only runtime piece of the toolkit. Everything else is source code in your repo."
-        badge="planned · v0.2"
+        badge="v0.2"
       />
 
       <section id="install-cli" className="flex flex-col gap-4">
