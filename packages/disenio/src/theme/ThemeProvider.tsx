@@ -156,15 +156,28 @@ export interface ThemeState {
   feel: Feel;
   accent: string;
   calm: boolean;
+  /** null = auto-derive from accent. Otherwise 2–5 explicit hex stops. */
+  gradient: string[] | null;
   setFeel: (f: Feel) => void;
   setAccent: (hex: string) => void;
   setCalm: (v: boolean) => void;
+  setGradient: (stops: string[] | null) => void;
   exportCss: () => string;
+}
+
+function buildGradient(accent: string, stops: string[] | null): string {
+  if (stops && stops.length >= 2) {
+    const positioned = stops.map(
+      (c, i) => `${c} ${Math.round((i / (stops.length - 1)) * 100)}%`,
+    );
+    return `linear-gradient(135deg, ${positioned.join(", ")})`;
+  }
+  return `linear-gradient(135deg, color-mix(in oklab, ${accent} 50%, white 50%) 0%, ${accent} 50%, color-mix(in oklab, ${accent} 60%, black 40%) 100%)`;
 }
 
 const ThemeCtx = React.createContext<ThemeState | null>(null);
 
-function applyTokens(feel: Feel, accent: string) {
+function applyTokens(feel: Feel, accent: string, gradient: string[] | null = null) {
   if (typeof document === "undefined") return;
   const t = FEELS[feel].tokens;
   const r = document.documentElement.style;
@@ -190,13 +203,8 @@ function applyTokens(feel: Feel, accent: string) {
   // accent-ink: pick black or paper based on luminance
   const ink = readableInk(accent);
   r.setProperty("--ds-accent-ink", ink);
-  // Brand gradient is derived from the accent so it auto-tunes when users
-  // pick their own brand color. Explicit overrides happen in disenio.json
-  // via the CLI's --gradient flag (and live in theme.css directly).
-  r.setProperty(
-    "--ds-brand-gradient",
-    `linear-gradient(135deg, color-mix(in oklab, ${accent} 65%, white 35%) 0%, ${accent} 50%, color-mix(in oklab, ${accent} 75%, black 25%) 100%)`,
-  );
+  // Brand gradient: explicit stops if provided, otherwise auto-derive from the accent.
+  r.setProperty("--ds-brand-gradient", buildGradient(accent, gradient));
 }
 
 /* ──────────────  Share-link encoding  ────────────── */
@@ -212,17 +220,32 @@ function fromBase64Url(s: string) {
   return Buffer.from(s, "base64url").toString("utf8");
 }
 
-export function encodeThemeHash(state: { feel: Feel; accent: string }): string {
-  return toBase64Url(JSON.stringify([state.feel, state.accent]));
+export function encodeThemeHash(state: {
+  feel: Feel;
+  accent: string;
+  gradient?: string[] | null;
+}): string {
+  // [feel, accent] for back-compat; [feel, accent, gradient] when explicit.
+  const payload = state.gradient && state.gradient.length >= 2
+    ? [state.feel, state.accent, state.gradient]
+    : [state.feel, state.accent];
+  return toBase64Url(JSON.stringify(payload));
 }
 
-export function decodeThemeHash(hash: string): { feel: Feel; accent: string } | null {
+export function decodeThemeHash(
+  hash: string,
+): { feel: Feel; accent: string; gradient: string[] | null } | null {
   try {
     const decoded = JSON.parse(fromBase64Url(hash));
-    if (!Array.isArray(decoded) || decoded.length !== 2) return null;
-    const [feel, accent] = decoded;
+    if (!Array.isArray(decoded) || decoded.length < 2) return null;
+    const [feel, accent, gradient] = decoded;
     if (!(feel in FEELS) || typeof accent !== "string") return null;
-    return { feel: feel as Feel, accent };
+    let stops: string[] | null = null;
+    if (Array.isArray(gradient) && gradient.length >= 2 && gradient.length <= 5) {
+      const ok = gradient.every((s) => typeof s === "string" && /^#[0-9a-fA-F]{3,8}$/.test(s));
+      if (ok) stops = gradient;
+    }
+    return { feel: feel as Feel, accent, gradient: stops };
   } catch {
     return null;
   }
@@ -261,6 +284,7 @@ export function ThemeProvider({
   const [feel, setFeelState] = React.useState<Feel>(defaultFeel);
   const [accent, setAccentState] = React.useState<string>(defaultAccent);
   const [calm, setCalmState] = React.useState<boolean>(false);
+  const [gradient, setGradientState] = React.useState<string[] | null>(null);
 
   // Read shared theme from URL once on mount + restore calm preference
   React.useEffect(() => {
@@ -272,6 +296,7 @@ export function ThemeProvider({
       if (decoded) {
         setFeelState(decoded.feel);
         setAccentState(decoded.accent);
+        setGradientState(decoded.gradient);
       }
     }
     // Calm: localStorage wins, otherwise inherit from prefers-reduced-motion
@@ -302,17 +327,19 @@ export function ThemeProvider({
   }, [calm, feel]);
 
   React.useEffect(() => {
-    applyTokens(feel, accent);
-  }, [feel, accent]);
+    applyTokens(feel, accent, gradient);
+  }, [feel, accent, gradient]);
 
   const value = React.useMemo<ThemeState>(
     () => ({
       feel,
       accent,
       calm,
+      gradient,
       setFeel: setFeelState,
       setAccent: setAccentState,
       setCalm: setCalmState,
+      setGradient: setGradientState,
       exportCss: () => {
         const t = FEELS[feel].tokens;
         return `:root {
@@ -333,11 +360,11 @@ export function ThemeProvider({
   --ds-field-radius: ${t.fieldRadius};
   --ds-accent: ${accent};
   --ds-accent-ink: ${readableInk(accent)};
-  --ds-brand-gradient: linear-gradient(135deg, color-mix(in oklab, ${accent} 65%, white 35%) 0%, ${accent} 50%, color-mix(in oklab, ${accent} 75%, black 25%) 100%);
+  --ds-brand-gradient: ${buildGradient(accent, gradient)};
 }`;
       },
     }),
-    [feel, accent, calm],
+    [feel, accent, calm, gradient],
   );
 
   return <ThemeCtx.Provider value={value}>{children}</ThemeCtx.Provider>;

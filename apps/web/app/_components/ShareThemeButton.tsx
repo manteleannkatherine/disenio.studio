@@ -3,11 +3,11 @@ import { encodeThemeHash, useTheme } from "@disenio/ui";
 import { useState } from "react";
 
 export function ShareThemeButton() {
-  const { feel, accent } = useTheme();
+  const { feel, accent, gradient } = useTheme();
   const [copied, setCopied] = useState(false);
 
   const onShare = async () => {
-    const hash = encodeThemeHash({ feel, accent });
+    const hash = encodeThemeHash({ feel, accent, gradient });
     const url = `${globalThis.location.origin}/?t=${hash}`;
     await navigator.clipboard.writeText(url);
     setCopied(true);

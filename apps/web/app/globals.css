@@ -22,9 +22,9 @@
   --ds-letter-spacing: -0.02em;
   --ds-brand-gradient: linear-gradient(
     135deg,
-    color-mix(in oklab, var(--ds-accent) 65%, white 35%) 0%,
+    color-mix(in oklab, var(--ds-accent) 50%, white 50%) 0%,
     var(--ds-accent) 50%,
-    color-mix(in oklab, var(--ds-accent) 75%, black 25%) 100%
+    color-mix(in oklab, var(--ds-accent) 60%, black 40%) 100%
   );
 }
 

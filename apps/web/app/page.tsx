@@ -2,6 +2,7 @@ import Link from "next/link";
 import { SiteNav } from "./_components/SiteNav";
 import { FeelSwitcher } from "./_components/FeelSwitcher";
 import { AccentPicker } from "./_components/AccentPicker";
+import { GradientPicker } from "./_components/GradientPicker";
 import { ThemeExport } from "./_components/ThemeExport";
 import { BrandLockup } from "./_components/BrandMark";
 import { ShareThemeButton } from "./_components/ShareThemeButton";
@@ -116,6 +117,7 @@ export default function Home() {
               </div>
               <FeelSwitcher />
               <AccentPicker />
+              <GradientPicker />
               <div className="border-t hairline pt-4">
                 <ThemeExport />
               </div>
@@ -486,6 +488,7 @@ export default function Home() {
                 dot: "var(--ds-ink)",
                 glow: "none",
                 items: [
+                  "Icons (curated set, themed)",
                   "Combobox & Multiselect",
                   "Date / range picker",
                   "Drawer / Sheet",

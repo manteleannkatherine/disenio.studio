@@ -243,7 +243,7 @@ function renderThemeCss(themeId, accent = DEFAULT_ACCENT, gradientStops = null) 
   // the CSS var so changing --ds-accent at runtime auto-rerenders the gradient.
   const gradient = gradientStops
     ? buildGradientCss(gradientStops, accent)
-    : `linear-gradient(135deg, color-mix(in oklab, var(--ds-accent) 65%, white 35%) 0%, var(--ds-accent) 50%, color-mix(in oklab, var(--ds-accent) 75%, black 25%) 100%)`;
+    : `linear-gradient(135deg, color-mix(in oklab, var(--ds-accent) 50%, white 50%) 0%, var(--ds-accent) 50%, color-mix(in oklab, var(--ds-accent) 60%, black 40%) 100%)`;
 
   return `/* disenio.studio · ${theme.label} — ${theme.blurb} */
 :root {
