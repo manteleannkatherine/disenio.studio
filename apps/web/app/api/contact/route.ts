@@ -215,25 +215,29 @@ export async function POST(req: NextRequest) {
   </body>
 </html>`;
 
-  // Auto-reply to the sender confirming receipt.
-  const confirmSubject = "Got your message · disenio.studio";
+  // Auto-reply to the sender confirming receipt — branded as CreativeKat Studio.
+  const firstName = name.split(" ")[0] || name;
+  const confirmSubject = "We got your note · CreativeKat Studio";
   const confirmText = [
-    `Hey ${name},`,
+    `— WE GOT IT`,
     ``,
-    `Thanks for reaching out about: ${topicLabel}.`,
+    `Thanks, ${firstName} — your note landed safely.`,
     ``,
-    `Your message landed safely. I read every one personally and reply within a couple of days — usually faster.`,
+    `We read every message that comes through here. Expect a reply within 1–3 business days, usually sooner.`,
     ``,
-    `Just so you have it on record, here's what you sent:`,
+    `In the meantime, feel free to take a look around the studio:`,
+    `· disenio.studio  — copy-paste design toolkit`,
+    `· creativekat.studio — small, careful digital products`,
     ``,
-    `─────────────────────────────`,
+    `— YOUR MESSAGE`,
+    ``,
     message,
+    ``,
+    `Just hit reply if you forgot to add something — this thread will route to us directly.`,
+    ``,
     `─────────────────────────────`,
-    ``,
-    `If anything's urgent or you forgot to add something, just reply to this email.`,
-    ``,
-    `— Ann`,
-    `disenio.studio · a creativekat.studio project`,
+    `EST. 2026 — SMALL, CAREFUL DIGITAL PRODUCTS.`,
+    `creativekat.studio · ${INQUIRY_TO}`,
   ].join("\n");
 
   const confirmHtml = `<!doctype html>
@@ -246,38 +250,61 @@ export async function POST(req: NextRequest) {
   </head>
   <body style="margin:0;padding:0;background:#f4f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,system-ui,sans-serif;color:#0a0b10;">
     <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0;">
-      Got it. I'll reply within a couple of days — usually faster.
+      Your note landed safely. We reply within 1–3 business days, usually sooner.
     </div>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f5f9;padding:32px 16px;">
       <tr>
         <td align="center">
-          <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 1px 0 rgba(15,18,32,0.04),0 18px 50px -24px rgba(15,18,32,0.18);">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border:1px solid #ececf3;border-radius:16px;overflow:hidden;">
+
+            <!-- Brand -->
             <tr>
-              <td style="height:6px;background:linear-gradient(135deg,#b27bff 0%,#6d4cf2 50%,#2f5dff 100%);line-height:6px;font-size:6px;">&nbsp;</td>
+              <td style="padding:24px 32px 20px 32px;border-bottom:1px solid #ececf3;">
+                <div style="font-size:20px;font-weight:600;letter-spacing:-0.025em;color:#0a0b10;">
+                  creativekat<span style="background:linear-gradient(135deg,#b27bff 0%,#6d4cf2 50%,#2f5dff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">.studio</span>
+                </div>
+              </td>
             </tr>
 
+            <!-- Eyebrow + headline -->
             <tr>
-              <td style="padding:28px 32px 8px 32px;">
-                <p style="margin:0 0 6px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
-                  Got it · disenio.studio
+              <td style="padding:24px 32px 0 32px;">
+                <p style="margin:0 0 8px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
+                  — We got it
                 </p>
-                <h1 style="margin:0 0 12px 0;font-size:26px;line-height:1.2;letter-spacing:-0.015em;color:#0a0b10;font-weight:600;">
-                  Hey ${escape(name.split(" ")[0])}, I got your message.
+                <h1 style="margin:0 0 14px 0;font-size:24px;line-height:1.25;letter-spacing:-0.015em;color:#0a0b10;font-weight:600;">
+                  Thanks, ${escape(firstName)} — your note landed safely.
                 </h1>
-                <p style="margin:0;font-size:15px;line-height:1.6;color:#3a3e4d;">
-                  Thanks for writing about <strong style="color:#0a0b10;font-weight:600;">${escape(topicLabel)}</strong>. I read every message personally and reply within a couple of days — usually faster.
+                <p style="margin:0 0 12px 0;font-size:15px;line-height:1.6;color:#3a3e4d;">
+                  We read every message that comes through here. Expect a reply within <strong style="color:#0a0b10;font-weight:600;">1–3 business days</strong>, usually sooner.
+                </p>
+                <p style="margin:0 0 16px 0;font-size:15px;line-height:1.6;color:#3a3e4d;">
+                  In the meantime, feel free to take a look around the studio:
                 </p>
               </td>
             </tr>
 
+            <!-- Pill links -->
+            <tr>
+              <td style="padding:0 32px 4px 32px;">
+                <a href="https://disenio.studio" style="display:inline-block;padding:9px 16px;margin:0 6px 8px 0;border:1px solid #d8dbe6;border-radius:9999px;font-size:13px;color:#0a0b10;text-decoration:none;font-weight:500;">
+                  disenio.studio ↗
+                </a>
+                <a href="https://creativekat.studio" style="display:inline-block;padding:9px 16px;margin:0 6px 8px 0;border:1px solid #d8dbe6;border-radius:9999px;font-size:13px;color:#0a0b10;text-decoration:none;font-weight:500;">
+                  creativekat.studio ↗
+                </a>
+              </td>
+            </tr>
+
+            <!-- Your message -->
             <tr>
               <td style="padding:20px 32px 0 32px;">
+                <p style="margin:0 0 8px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
+                  — Your message
+                </p>
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fc;border:1px solid #e6e8f0;border-radius:10px;">
                   <tr>
-                    <td style="padding:16px 18px;">
-                      <p style="margin:0 0 6px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
-                        Your message
-                      </p>
+                    <td style="padding:14px 16px;">
                       <div style="font-size:14px;line-height:1.6;color:#1a1c26;white-space:pre-wrap;">${escape(message)}</div>
                     </td>
                   </tr>
@@ -285,22 +312,28 @@ export async function POST(req: NextRequest) {
               </td>
             </tr>
 
+            <!-- Reply note -->
             <tr>
-              <td style="padding:20px 32px 4px 32px;">
-                <p style="margin:0;font-size:14px;line-height:1.6;color:#3a3e4d;">
-                  Forgot something or feeling urgent? <a href="mailto:${escape(INQUIRY_TO)}?subject=${encodeURIComponent("Re: " + confirmSubject)}" style="color:#6d4cf2;text-decoration:none;font-weight:600;">Just reply to this email</a> — it goes straight to my inbox.
+              <td style="padding:18px 32px 22px 32px;">
+                <p style="margin:0;font-size:14px;line-height:1.6;color:#6b7186;">
+                  Just hit reply if you forgot to add something — this thread will route to us directly.
                 </p>
               </td>
             </tr>
 
+            <!-- Footer -->
             <tr>
-              <td style="padding:24px 32px 28px 32px;">
+              <td style="padding:0 32px 26px 32px;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #ececf3;">
                   <tr>
                     <td style="padding-top:18px;">
-                      <p style="margin:0 0 4px 0;font-size:14px;color:#1a1c26;">— Ann</p>
-                      <p style="margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#a4a9bc;">
-                        disenio.studio · a creativekat.studio project
+                      <p style="margin:0 0 6px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#0a0b10;font-weight:500;">
+                        Est. 2026 — small, careful digital products.
+                      </p>
+                      <p style="margin:0;font-size:13px;color:#6b7186;">
+                        <a href="https://creativekat.studio" style="color:#6b7186;text-decoration:none;">creativekat.studio</a>
+                        &nbsp;·&nbsp;
+                        <a href="mailto:${escape(INQUIRY_TO)}" style="color:#6b7186;text-decoration:none;">${escape(INQUIRY_TO)}</a>
                       </p>
                     </td>
                   </tr>
@@ -308,10 +341,6 @@ export async function POST(req: NextRequest) {
               </td>
             </tr>
           </table>
-
-          <p style="margin:14px 0 0 0;font-size:11px;color:#a4a9bc;">
-            You're getting this because you wrote in via disenio.studio/contact. No list, no follow-ups — just this one note.
-          </p>
         </td>
       </tr>
     </table>
