@@ -75,7 +75,7 @@ export function ContactForm({ to }: { to: string }) {
       toast({
         title: "Message sent",
         description: `I'll reply from ${to} within a couple of days.`,
-        variant: "success",
+        tone: "accent",
       });
     } catch (err) {
       toast({
@@ -84,7 +84,7 @@ export function ContactForm({ to }: { to: string }) {
           err instanceof Error
             ? err.message
             : `Try again, or email ${to} directly.`,
-        variant: "error",
+        tone: "danger",
       });
     } finally {
       setSubmitting(false);
