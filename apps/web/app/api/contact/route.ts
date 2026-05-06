@@ -215,8 +215,113 @@ export async function POST(req: NextRequest) {
   </body>
 </html>`;
 
+  // Auto-reply to the sender confirming receipt.
+  const confirmSubject = "Got your message · disenio.studio";
+  const confirmText = [
+    `Hey ${name},`,
+    ``,
+    `Thanks for reaching out about: ${topicLabel}.`,
+    ``,
+    `Your message landed safely. I read every one personally and reply within a couple of days — usually faster.`,
+    ``,
+    `Just so you have it on record, here's what you sent:`,
+    ``,
+    `─────────────────────────────`,
+    message,
+    `─────────────────────────────`,
+    ``,
+    `If anything's urgent or you forgot to add something, just reply to this email.`,
+    ``,
+    `— Ann`,
+    `disenio.studio · a creativekat.studio project`,
+  ].join("\n");
+
+  const confirmHtml = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>${escape(confirmSubject)}</title>
+  </head>
+  <body style="margin:0;padding:0;background:#f4f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,system-ui,sans-serif;color:#0a0b10;">
+    <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0;">
+      Got it. I'll reply within a couple of days — usually faster.
+    </div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f5f9;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 1px 0 rgba(15,18,32,0.04),0 18px 50px -24px rgba(15,18,32,0.18);">
+            <tr>
+              <td style="height:6px;background:linear-gradient(135deg,#b27bff 0%,#6d4cf2 50%,#2f5dff 100%);line-height:6px;font-size:6px;">&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td style="padding:28px 32px 8px 32px;">
+                <p style="margin:0 0 6px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
+                  Got it · disenio.studio
+                </p>
+                <h1 style="margin:0 0 12px 0;font-size:26px;line-height:1.2;letter-spacing:-0.015em;color:#0a0b10;font-weight:600;">
+                  Hey ${escape(name.split(" ")[0])}, I got your message.
+                </h1>
+                <p style="margin:0;font-size:15px;line-height:1.6;color:#3a3e4d;">
+                  Thanks for writing about <strong style="color:#0a0b10;font-weight:600;">${escape(topicLabel)}</strong>. I read every message personally and reply within a couple of days — usually faster.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:20px 32px 0 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fc;border:1px solid #e6e8f0;border-radius:10px;">
+                  <tr>
+                    <td style="padding:16px 18px;">
+                      <p style="margin:0 0 6px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
+                        Your message
+                      </p>
+                      <div style="font-size:14px;line-height:1.6;color:#1a1c26;white-space:pre-wrap;">${escape(message)}</div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:20px 32px 4px 32px;">
+                <p style="margin:0;font-size:14px;line-height:1.6;color:#3a3e4d;">
+                  Forgot something or feeling urgent? <a href="mailto:${escape(INQUIRY_TO)}?subject=${encodeURIComponent("Re: " + confirmSubject)}" style="color:#6d4cf2;text-decoration:none;font-weight:600;">Just reply to this email</a> — it goes straight to my inbox.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:24px 32px 28px 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #ececf3;">
+                  <tr>
+                    <td style="padding-top:18px;">
+                      <p style="margin:0 0 4px 0;font-size:14px;color:#1a1c26;">— Ann</p>
+                      <p style="margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#a4a9bc;">
+                        disenio.studio · a creativekat.studio project
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <p style="margin:14px 0 0 0;font-size:11px;color:#a4a9bc;">
+            You're getting this because you wrote in via disenio.studio/contact. No list, no follow-ups — just this one note.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+
   try {
     const resend = new Resend(RESEND_API_KEY);
+
+    // 1. Notification to inbox (must succeed).
     const { error } = await resend.emails.send({
       from: INQUIRY_FROM,
       to: INQUIRY_TO,
@@ -227,8 +332,22 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      console.error("resend error", error);
+      console.error("resend admin error", error);
       return NextResponse.json({ error: "Mail provider rejected the message." }, { status: 502 });
+    }
+
+    // 2. Auto-reply to the sender (best-effort — don't fail the request if this errors).
+    try {
+      await resend.emails.send({
+        from: INQUIRY_FROM,
+        to: email,
+        replyTo: INQUIRY_TO,
+        subject: confirmSubject,
+        text: confirmText,
+        html: confirmHtml,
+      });
+    } catch (confirmErr) {
+      console.error("confirmation send failed (non-fatal)", confirmErr);
     }
 
     return NextResponse.json({ ok: true });
