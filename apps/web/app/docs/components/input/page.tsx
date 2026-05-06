@@ -8,22 +8,22 @@ import { highlight } from "../../../_components/docs/highlight";
 import { A11yAudit } from "../../../_components/docs/A11yAudit";
 
 const SNIPPETS = {
-  basic: `<Input label="Email" placeholder="hola@disenio.io" />`,
+  basic: `<Input label="Email" placeholder="hola@disenio.studio" />`,
   withHint: `<Input
   label="Email"
-  placeholder="hola@disenio.io"
+  placeholder="hola@disenio.studio"
   hint="We'll never share it."
 />`,
   error: `<Input
   label="Email"
-  placeholder="hola@disenio.io"
+  placeholder="hola@disenio.studio"
   defaultValue="hola"
   error="Needs an @"
 />`,
   usage: `import { Input } from "@/components/ui/input";
 
 export default function Example() {
-  return <Input label="Email" placeholder="hola@disenio.io" />;
+  return <Input label="Email" placeholder="hola@disenio.studio" />;
 }`,
 };
 
@@ -47,7 +47,7 @@ export default async function InputPage() {
       <section id="preview" className="flex flex-col gap-4">
         <Preview code={SNIPPETS.basic} highlightedCode={hBasic}>
           <div className="w-full max-w-sm">
-            <Input label="Email" placeholder="hola@disenio.io" />
+            <Input label="Email" placeholder="hola@disenio.studio" />
           </div>
         </Preview>
       </section>
@@ -71,7 +71,7 @@ export default async function InputPage() {
           </h3>
           <Preview code={SNIPPETS.withHint} highlightedCode={hWithHint}>
             <div className="w-full max-w-sm">
-              <Input label="Email" placeholder="hola@disenio.io" hint="We'll never share it." />
+              <Input label="Email" placeholder="hola@disenio.studio" hint="We'll never share it." />
             </div>
           </Preview>
         </div>
@@ -82,7 +82,7 @@ export default async function InputPage() {
           </h3>
           <Preview code={SNIPPETS.error} highlightedCode={hError}>
             <div className="w-full max-w-sm">
-              <Input label="Email" placeholder="hola@disenio.io" defaultValue="hola" error="Needs an @" />
+              <Input label="Email" placeholder="hola@disenio.studio" defaultValue="hola" error="Needs an @" />
             </div>
           </Preview>
         </div>

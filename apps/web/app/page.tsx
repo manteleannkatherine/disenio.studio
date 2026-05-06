@@ -36,7 +36,7 @@ export default function Home() {
             </h1>
 
             <p className="text-lg text-[var(--ds-ink-soft)] max-w-[54ch] leading-relaxed">
-              disenio.io is a copy-paste component library you can re-skin in seconds.
+              disenio.studio is a copy-paste component library you can re-skin in seconds.
               Pick a Feel, choose an accent, share the URL — the whole site re-tunes around you.
               Then copy the source and own it forever.
             </p>
@@ -140,7 +140,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-[var(--ds-ink-soft)] max-w-[52ch]">
-              Most copy-paste libraries dump primitives in your repo and walk away. disenio.io
+              Most copy-paste libraries dump primitives in your repo and walk away. disenio.studio
               ships the layer everyone else skips — pairs, layouts, an upgrade path, and a viral
               theme system.
             </p>
@@ -211,7 +211,7 @@ export default function Home() {
           <div className="mt-8 pt-8 border-t hairline flex flex-col gap-5">
             <div className="flex items-center justify-between flex-wrap gap-3">
               <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
-                built with disenio.io
+                built with disenio.studio
               </span>
               <a
                 href="https://github.com"
@@ -222,7 +222,7 @@ export default function Home() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {[
-                { name: "disenio.io", href: "/", note: "this site · meta" },
+                { name: "disenio.studio", href: "/", note: "this site · meta" },
                 { name: "Studio (preview)", href: "/admin", note: "the hidden CMS" },
                 { name: "Marketing Kit", href: "#pricing", note: "coming soon" },
                 { name: "Your project?", href: "https://github.com", note: "open a PR" },
@@ -427,7 +427,7 @@ export default function Home() {
           </div>
         </div>
         <div className="mx-auto max-w-6xl py-6 border-t hairline flex items-center justify-between text-xs text-[var(--ds-muted)]">
-          <span>© 2026 disenio.io</span>
+          <span>© 2026 disenio.studio</span>
           <span className="mono">made with restraint</span>
         </div>
       </footer>

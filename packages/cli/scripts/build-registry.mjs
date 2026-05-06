@@ -109,7 +109,6 @@ const theme = {
 };
 
 const registry = {
-  $schema: "https://disenio.io/registry.schema.json",
   version: "0.2.0",
   components: components.toSorted((a, b) => a.id.localeCompare(b.id)),
   pairs: pairs.toSorted((a, b) => a.id.localeCompare(b.id)),

@@ -7,13 +7,13 @@ export default function DocsHome() {
       <PageHeader
         eyebrow="Docs"
         title="Introduction"
-        description="disenio.io is a copy-paste design toolkit. Components live in your repo as plain TSX, theme tokens travel as CSS variables, and a “Feel” swaps radius, motion, and shadow language together. Re-skin in seconds, own forever."
+        description="disenio.studio is a copy-paste design toolkit. Components live in your repo as plain TSX, theme tokens travel as CSS variables, and a “Feel” swaps radius, motion, and shadow language together. Re-skin in seconds, own forever."
       />
 
       <section id="philosophy" className="flex flex-col gap-4">
         <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Philosophy</h2>
         <p className="text-[var(--ds-ink-soft)] leading-relaxed">
-          Most component libraries lock you into their abstractions. disenio.io ships
+          Most component libraries lock you into their abstractions. disenio.studio ships
           components as <em>source</em> — you copy them into your project, theme them with
           CSS variables, and edit them when you need to. There's no version lock, no
           runtime dependency, no fighting the framework.

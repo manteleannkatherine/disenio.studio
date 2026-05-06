@@ -1,10 +1,17 @@
 {
-  "name": "disenio",
+  "name": "disenio.studio",
   "version": "0.2.0",
-  "description": "CLI for disenio.io — copy-paste design toolkit.",
+  "description": "CLI for disenio.studio — copy-paste design toolkit.",
   "license": "MIT",
   "type": "module",
-  "bin": { "disenio": "./bin.js" },
+  "bin": { "disenio.studio": "./bin.js" },
+  "homepage": "https://disenio.studio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manteleannkatherine/disenio-io.git",
+    "directory": "packages/cli"
+  },
+  "keywords": ["disenio", "design-system", "components", "tailwind", "react", "copy-paste", "cli"],
   "scripts": {
     "build:registry": "node ./scripts/build-registry.mjs",
     "prepublishOnly": "node ./scripts/build-registry.mjs"

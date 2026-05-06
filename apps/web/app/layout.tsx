@@ -3,13 +3,13 @@ import "./globals.css";
 import { ThemeProvider, ToastProvider } from "@disenio/ui";
 import { CommandPalette } from "./_components/CommandPalette";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://disenio.io";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://disenio.studio";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "disenio.io — a copy-paste design toolkit",
-    template: "%s · disenio.io",
+    default: "disenio.studio — a copy-paste design toolkit",
+    template: "%s · disenio.studio",
   },
   description:
     "A copy-paste design toolkit with a feel. 11 components, 8 layout primitives, 4 pairs, a CLI with diff/update, and exportable themes you can share as URLs.",
@@ -25,22 +25,22 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: "website",
-    title: "disenio.io — a copy-paste design toolkit",
+    title: "disenio.studio — a copy-paste design toolkit",
     description: "A copy-paste design toolkit with a feel. Components, pairs, layouts, and a CLI.",
     url: siteUrl,
-    siteName: "disenio.io",
+    siteName: "disenio.studio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "disenio.io — a copy-paste design toolkit",
+    title: "disenio.studio — a copy-paste design toolkit",
     description: "A copy-paste design toolkit with a feel.",
   },
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/disenio-io-dark.png", type: "image/png" },
+      { url: "/disenio-studio-dark.png", type: "image/png" },
     ],
-    apple: "/disenio-io-dark.png",
+    apple: "/disenio-studio-dark.png",
   },
 };
 

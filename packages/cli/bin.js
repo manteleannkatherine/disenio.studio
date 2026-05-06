@@ -82,7 +82,6 @@ function commandInit(args) {
     return;
   }
   const cfg = {
-    $schema: "https://disenio.io/config.schema.json",
     aliases: { ui: "components/ui", lib: "lib" },
     theme: "app/styles/theme.css",
   };

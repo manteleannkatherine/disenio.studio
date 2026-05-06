@@ -5,7 +5,7 @@ import { cn } from "../utils/cn";
  * FormField — the canonical pair: label + control + hint/error.
  *
  *   <FormField label="Email" hint="We never share">
- *     <Input placeholder="hola@disenio.io" />
+ *     <Input placeholder="hola@disenio.studio" />
  *   </FormField>
  *
  * Renders a `<label>` wrapping the control region so clicking the label focuses

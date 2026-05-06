@@ -31,7 +31,7 @@ const STACKS: Stack[] = [
         cmd: "npx create-next-app@latest my-app --typescript --tailwind --app --use-npm --yes",
       },
       {
-        title: "2. Initialize disenio.io",
+        title: "2. Initialize disenio.studio",
         body: "Drops disenio.json, the cn util, and a starter theme.css.",
         cmd: "cd my-app && npx disenio init",
       },
@@ -98,7 +98,7 @@ export default defineConfig({
 });`,
       },
       {
-        title: "4. Initialize disenio.io",
+        title: "4. Initialize disenio.studio",
         cmd: "npx disenio init",
       },
       {
@@ -134,7 +134,7 @@ export default defineConfig({
         cmd: "npx astro add react tailwind --yes",
       },
       {
-        title: "3. Initialize disenio.io",
+        title: "3. Initialize disenio.studio",
         cmd: "npx disenio init",
       },
       {
@@ -177,7 +177,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({ plugins: [remix(), tailwindcss()] });`,
       },
       {
-        title: "4. Initialize disenio.io",
+        title: "4. Initialize disenio.studio",
         cmd: "npx disenio init",
       },
       {
@@ -200,7 +200,7 @@ export default defineConfig({ plugins: [remix(), tailwindcss()] });`,
         cmd: "npm install tailwindcss @tailwindcss/vite",
       },
       {
-        title: "3. Initialize disenio.io",
+        title: "3. Initialize disenio.studio",
         cmd: "npx disenio init",
       },
       {

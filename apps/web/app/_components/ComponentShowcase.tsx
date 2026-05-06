@@ -40,7 +40,7 @@ export function ComponentShowcase() {
         </div>
         <Input
           label="Email"
-          placeholder="hola@disenio.io"
+          placeholder="hola@disenio.studio"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           error={!valid ? "Needs an @" : undefined}

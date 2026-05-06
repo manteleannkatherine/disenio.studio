@@ -72,7 +72,7 @@ const ITEMS = [
     href: "/docs/components/input",
     name: "Input",
     desc: "Single-line text field with label, hint, error states.",
-    preview: <Input placeholder="hola@disenio.io" className="!h-9" />,
+    preview: <Input placeholder="hola@disenio.studio" className="!h-9" />,
   },
   {
     href: "/docs/components/layout",

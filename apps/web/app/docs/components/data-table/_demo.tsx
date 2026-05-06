@@ -10,7 +10,7 @@ interface User {
 }
 
 const USERS: User[] = [
-  { name: "Ana Mantel",       email: "ana@disenio.io",      role: "admin",  joined: "2026-04-12", status: "active" },
+  { name: "Ana Mantel",       email: "ana@disenio.studio",      role: "admin",  joined: "2026-04-12", status: "active" },
   { name: "Sam Rivera",       email: "sam@acme.co",         role: "member", joined: "2026-04-18", status: "active" },
   { name: "Chen Liu",         email: "chen@studio.dev",     role: "member", joined: "2026-04-22", status: "invited" },
   { name: "Mira Patel",       email: "mira@labs.io",        role: "viewer", joined: "2026-04-25", status: "active" },

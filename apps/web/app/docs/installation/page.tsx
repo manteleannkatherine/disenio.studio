@@ -8,7 +8,7 @@ export default function InstallationPage() {
       <PageHeader
         eyebrow="Getting Started"
         title="Installation"
-        description="Drop disenio.io into a fresh or existing project in under a minute. The CLI installs tokens, utilities, and a starter theme — you stay in control of everything else."
+        description="Drop disenio.studio into a fresh or existing project in under a minute. The CLI installs tokens, utilities, and a starter theme — you stay in control of everything else."
       />
 
       <section id="prereqs" className="flex flex-col gap-4">

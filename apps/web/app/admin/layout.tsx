@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BrandLockup } from "../_components/BrandMark";
 
 export const metadata: Metadata = {
-  title: "disenio.io · studio",
+  title: "disenio.studio · studio",
   robots: { index: false, follow: false },
 };
 

@@ -22,7 +22,7 @@ import { FilterBarDemo } from "./_demos";
 
 const SNIPPETS = {
   formField: `<FormField label="Email" hint="We'll never share it." required>
-  <Input placeholder="hola@disenio.io" />
+  <Input placeholder="hola@disenio.studio" />
 </FormField>`,
   toolbar: `<Toolbar>
   <Toolbar.Search placeholder="Search components" />
@@ -98,9 +98,9 @@ import { Input } from "ui/input";
   <span className="text-xs text-muted">We'll never share it.</span>
 </div>
 
-// What disenio.io ships instead:
+// What disenio.studio ships instead:
 <FormField label="Email" hint="We'll never share it.">
-  <Input placeholder="hola@disenio.io" />
+  <Input placeholder="hola@disenio.studio" />
 </FormField>`,
 };
 
@@ -148,7 +148,7 @@ export default async function PairsPage() {
         <Preview code={SNIPPETS.formField} highlightedCode={hForm}>
           <Stack gap="md" className="w-full max-w-sm">
             <FormField label="Email" hint="We'll never share it." required>
-              <Input placeholder="hola@disenio.io" />
+              <Input placeholder="hola@disenio.studio" />
             </FormField>
             <FormField label="Password" error="Too short">
               <Input type="password" defaultValue="hola" />
@@ -244,7 +244,7 @@ export default async function PairsPage() {
             footer={<>No account? <span className="text-[var(--ds-ink)] underline">Sign up</span></>}
           >
             <FormField label="Email">
-              <Input placeholder="hola@disenio.io" />
+              <Input placeholder="hola@disenio.studio" />
             </FormField>
             <FormField label="Password">
               <Input type="password" placeholder="••••••" />

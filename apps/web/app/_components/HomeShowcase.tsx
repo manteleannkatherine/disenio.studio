@@ -40,7 +40,7 @@ export function HomeShowcase() {
         </Cluster>
         <Stack gap="md">
           <FormField label="Email" hint="We'll never share it." required>
-            <Input placeholder="hola@disenio.io" />
+            <Input placeholder="hola@disenio.studio" />
           </FormField>
           <FormField label="Password" error="Too short">
             <Input type="password" defaultValue="hola" />
