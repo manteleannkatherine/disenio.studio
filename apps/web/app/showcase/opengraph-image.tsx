@@ -1,15 +1,16 @@
-import { renderOg, OG_SIZE, OG_CONTENT_TYPE } from "./_lib/og";
+import { renderOg, OG_SIZE, OG_CONTENT_TYPE } from "../_lib/og";
 
 export const runtime = "edge";
-export const alt = "disenio.studio — a copy-paste design toolkit";
+export const alt = "Showcase · disenio.studio";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
 export default function OgImage() {
   return renderOg({
+    eyebrow: "Showcase",
     title: (
       <>
-        <span>A design toolkit with a</span>
+        <span>Made with the toolkit.</span>
         <span
           style={{
             background:
@@ -19,10 +20,11 @@ export default function OgImage() {
             fontStyle: "italic",
           }}
         >
-          feel.
+          Or about to be.
         </span>
       </>
     ),
-    meta: ["13 components", "9 pairs", "6 feels", "cli"],
+    tagline:
+      "Real projects shipping with disenio.studio. One live, one in progress, an open slot for what's next.",
   });
 }
