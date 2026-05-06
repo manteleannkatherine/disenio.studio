@@ -75,10 +75,10 @@ export default function ThemingPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b hairline bg-[var(--ds-paper-deep)]">
-                <th className="text-left px-4 py-2.5 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] font-normal">
+                <th className="text-left px-4 py-2.5 mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] font-normal">
                   Token
                 </th>
-                <th className="text-left px-4 py-2.5 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] font-normal">
+                <th className="text-left px-4 py-2.5 mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] font-normal">
                   Purpose
                 </th>
               </tr>

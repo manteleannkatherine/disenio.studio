@@ -14,12 +14,12 @@ export function PageHeader({
   return (
     <header className="flex flex-col gap-3 pb-8 border-b hairline">
       {eyebrow && (
-        <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">{eyebrow}</span>
+        <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">{eyebrow}</span>
       )}
       <div className="flex items-center gap-3 flex-wrap">
         <h1 className="serif text-4xl md:text-5xl tracking-[-0.04em] font-semibold">{title}</h1>
         {badge && (
-          <span className="mono text-[10px] uppercase tracking-[0.18em] surface-deep px-2.5 py-1 rounded-full">
+          <span className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-2.5 py-1 rounded-full">
             {badge}
           </span>
         )}

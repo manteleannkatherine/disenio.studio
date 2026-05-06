@@ -55,7 +55,7 @@ export function ComponentShowcase() {
           hint={`${msg.length} / 280`}
         />
         <div className="flex items-center justify-between pt-2 border-t hairline">
-          <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+          <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
             keyboard ↹ tested · WCAG AA
           </span>
           <Button variant="accent" size="sm">Send →</Button>

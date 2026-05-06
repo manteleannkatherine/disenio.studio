@@ -13,7 +13,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1 min-w-0 py-8 lg:py-12">
           <div className="lg:hidden mb-6 flex items-center gap-2 text-sm text-[var(--ds-ink-soft)]">
             <MobileSidebarTrigger />
-            <span className="mono text-[10px] uppercase tracking-[0.18em]">Docs nav</span>
+            <span className="mono text-[12px] uppercase tracking-[0.14em]">Docs nav</span>
           </div>
           {children}
         </main>

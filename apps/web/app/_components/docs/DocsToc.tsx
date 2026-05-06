@@ -34,7 +34,7 @@ export function DocsToc({ items }: { items: TocItem[] }) {
 
   return (
     <nav className="sticky top-24 flex flex-col gap-2 py-8">
-      <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] mb-2">
+      <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] mb-2">
         On this page
       </span>
       <ul className="flex flex-col gap-1.5 text-sm">

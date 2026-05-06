@@ -15,7 +15,7 @@ export function AccentPicker() {
   const { accent, setAccent } = useTheme();
   return (
     <div className="flex items-center gap-3 flex-wrap">
-      <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">Accent</span>
+      <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">Accent</span>
       <div className="flex items-center gap-2">
         {PRESETS.map((c) => (
           <button

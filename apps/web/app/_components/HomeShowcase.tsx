@@ -47,7 +47,7 @@ export function HomeShowcase() {
           </FormField>
         </Stack>
         <Cluster justify="between" className="pt-2 border-t hairline">
-          <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+          <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
             a11y wired · WCAG AA
           </span>
           <Button variant="accent" size="sm">Send →</Button>
@@ -70,7 +70,7 @@ export function HomeShowcase() {
             <Button size="sm" variant="accent">+ New</Button>
           </Toolbar.Actions>
         </Toolbar>
-        <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+        <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
           slot-based · auto-arranges
         </span>
       </div>
@@ -131,7 +131,7 @@ export function HomeShowcase() {
         <Card>
           <CardHeader>
             <Cluster justify="between">
-              <CardTitle>Diseño Pro</CardTitle>
+              <CardTitle>Disenio Pro</CardTitle>
               <Badge tone="accent">popular</Badge>
             </Cluster>
             <CardDescription>Marketing Kit + Dashboard Kit + Email Kit.</CardDescription>

@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   },
   description:
     "A copy-paste design toolkit with a feel. 11 components, 8 layout primitives, 4 pairs, a CLI with diff/update, and exportable themes you can share as URLs.",
+  authors: [{ name: "CreativeKat Studio", url: "https://creativekat.studio" }],
+  creator: "CreativeKat Studio",
+  publisher: "CreativeKat Studio",
   keywords: [
     "design system",
     "ui library",
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/disenio-studio-dark.png", type: "image/png" },
     ],
     apple: "/disenio-studio-dark.png",

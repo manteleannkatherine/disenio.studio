@@ -360,7 +360,7 @@ export default async function PairsPage() {
           ].map((p) => (
             <div key={p} className="surface-deep p-4 flex items-center justify-between text-sm">
               <span>{p}</span>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">soon</span>
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">soon</span>
             </div>
           ))}
         </div>

@@ -71,7 +71,7 @@ function MiniPreview({ feel, accent }: { feel: Feel; accent: string }) {
     >
       <div className="flex items-center justify-between">
         <span
-          className="text-[10px] uppercase tracking-[0.18em]"
+          className="text-[12px] uppercase tracking-[0.14em]"
           style={{ color: t.muted, fontFamily: "ui-monospace, Menlo, monospace" }}
         >
           {FEELS[feel].label.toLowerCase()}
@@ -136,7 +136,7 @@ export function ThemeGallery() {
           <div className="p-4 flex flex-col gap-3 flex-1">
             <div className="flex items-center justify-between">
               <h3 className="serif text-lg tracking-[-0.02em]">{t.name}</h3>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 @{t.by}
               </span>
             </div>
@@ -164,7 +164,7 @@ export function ThemeGallery() {
         </article>
       ))}
       <article className="surface overflow-hidden flex flex-col items-center justify-center text-center p-6 gap-3 min-h-[280px] sm:col-span-2 lg:col-span-1">
-        <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+        <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
           your turn
         </span>
         <h3 className="serif text-xl tracking-[-0.02em]">Make and submit a theme</h3>

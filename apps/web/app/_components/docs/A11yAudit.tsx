@@ -62,7 +62,7 @@ export function A11yAudit({ keyboard, aria }: A11yAuditProps) {
     <div className="surface p-5 flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h3 className="serif text-lg tracking-[-0.02em] font-semibold">A11y · live audit</h3>
-        <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+        <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
           updates with theme
         </span>
       </div>
@@ -76,7 +76,7 @@ export function A11yAudit({ keyboard, aria }: A11yAuditProps) {
         <div className="grid sm:grid-cols-2 gap-3 pt-3 border-t hairline">
           {keyboard && (
             <div className="flex flex-col gap-1.5">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 Keyboard
               </span>
               <span className="mono text-xs text-[var(--ds-ink-soft)]">{keyboard}</span>
@@ -84,7 +84,7 @@ export function A11yAudit({ keyboard, aria }: A11yAuditProps) {
           )}
           {aria && (
             <div className="flex flex-col gap-1.5">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 ARIA
               </span>
               <span className="mono text-xs text-[var(--ds-ink-soft)]">{aria}</span>
@@ -107,13 +107,13 @@ function ContrastRow({
 }) {
   return (
     <div className="surface-deep p-3 flex flex-col gap-1.5">
-      <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+      <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
         {label}
       </span>
       <div className="flex items-baseline justify-between">
         <span className="serif text-2xl tracking-[-0.02em] font-semibold">{ratio.toFixed(2)}</span>
         <span
-          className="mono text-[10px] uppercase tracking-[0.18em] px-2 py-0.5 rounded-full"
+          className="mono text-[12px] uppercase tracking-[0.14em] px-2 py-0.5 rounded-full"
           style={{ background: verdict.tint, color: "white" }}
         >
           {verdict.label}

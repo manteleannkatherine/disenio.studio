@@ -11,10 +11,10 @@ export function PropsTable({ rows }: { rows: PropRow[] }) {
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b hairline bg-[var(--ds-paper-deep)]">
-            <th className="text-left px-4 py-2.5 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] font-normal">Prop</th>
-            <th className="text-left px-4 py-2.5 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] font-normal">Type</th>
-            <th className="text-left px-4 py-2.5 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] font-normal">Default</th>
-            <th className="text-left px-4 py-2.5 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] font-normal">Description</th>
+            <th className="text-left px-4 py-2.5 mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] font-normal">Prop</th>
+            <th className="text-left px-4 py-2.5 mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] font-normal">Type</th>
+            <th className="text-left px-4 py-2.5 mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] font-normal">Default</th>
+            <th className="text-left px-4 py-2.5 mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] font-normal">Description</th>
           </tr>
         </thead>
         <tbody>

@@ -22,6 +22,9 @@ const ROUTES = [
   "/docs/components/tabs",
   "/docs/components/textarea",
   "/docs/components/toast",
+  "/contact",
+  "/changelog",
+  "/showcase",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

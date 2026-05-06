@@ -184,7 +184,7 @@ export function CommandPalette() {
           ) : (
             grouped.map((g) => (
               <div key={g.group} className="flex flex-col gap-0.5">
-                <div className="px-4 pt-2 pb-1 mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                <div className="px-4 pt-2 pb-1 mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                   {g.group}
                 </div>
                 {g.items.map((item) => {
@@ -204,7 +204,7 @@ export function CommandPalette() {
                     >
                       <span className="text-sm">{item.title}</span>
                       <span
-                        className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] truncate max-w-[40%]"
+                        className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] truncate max-w-[40%]"
                         title={item.href}
                       >
                         {item.href}
@@ -216,7 +216,7 @@ export function CommandPalette() {
             ))
           )}
         </div>
-        <div className="flex items-center justify-between gap-2 px-4 h-9 border-t hairline mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+        <div className="flex items-center justify-between gap-2 px-4 h-9 border-t hairline mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
           <span>↑↓ navigate · ↵ open · esc close</span>
           <span>{flat.length} result{flat.length === 1 ? "" : "s"}</span>
         </div>

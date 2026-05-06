@@ -6,7 +6,7 @@ export default function NotFound() {
     <>
       <SiteNav />
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center gap-6">
-        <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+        <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
           404
         </span>
         <h1 className="serif text-[clamp(3rem,8vw,6rem)] tracking-[-0.045em] font-semibold">

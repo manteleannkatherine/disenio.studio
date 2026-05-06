@@ -18,11 +18,11 @@ export default function Home() {
         <div className="mx-auto max-w-6xl pt-16 lg:pt-20 pb-16 grid lg:grid-cols-12 gap-10 lg:gap-12">
           <div className="lg:col-span-7 flex flex-col gap-7">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] surface-deep px-3 py-1 rounded-full">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-3 py-1 rounded-full">
                 v0.2 · early access
               </span>
               <span
-                className="mono text-[10px] uppercase tracking-[0.18em] px-3 py-1 rounded-full"
+                className="mono text-[12px] uppercase tracking-[0.14em] px-3 py-1 rounded-full"
                 style={{ background: "var(--ds-brand-gradient)", color: "white" }}
               >
                 new · pairs · diff/update CLI
@@ -71,7 +71,7 @@ export default function Home() {
               ].map((s) => (
                 <div key={s.l} className="flex flex-col gap-1">
                   <span className="serif text-3xl tracking-[-0.02em]">{s.v}</span>
-                  <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                  <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                     {s.l}
                   </span>
                 </div>
@@ -83,7 +83,7 @@ export default function Home() {
           <div className="lg:col-span-5">
             <div className="surface p-6 flex flex-col gap-5 lg:sticky lg:top-24" id="theme">
               <div className="flex items-center justify-between">
-                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                   live theme
                 </span>
                 <span className="size-2 rounded-full bg-[var(--ds-accent)] animate-pulse" />
@@ -132,7 +132,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl py-24 flex flex-col gap-12">
           <div className="grid md:grid-cols-2 gap-8 items-end">
             <div>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 01 · why disenio
               </span>
               <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
@@ -174,7 +174,7 @@ export default function Home() {
                 href={x.href}
                 className="surface p-5 flex flex-col gap-3 min-h-[180px] hover:-translate-y-1 transition-transform group"
               >
-                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+                <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                   feature
                 </span>
                 <h3 className="serif text-2xl tracking-[-0.02em]">{x.k}</h3>
@@ -193,7 +193,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
           <div className="grid md:grid-cols-2 gap-8 items-end">
             <div>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 02 · themes in the wild
               </span>
               <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
@@ -210,31 +210,75 @@ export default function Home() {
           {/* Built with strip */}
           <div className="mt-8 pt-8 border-t hairline flex flex-col gap-5">
             <div className="flex items-center justify-between flex-wrap gap-3">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 built with disenio.studio
               </span>
-              <a
-                href="https://github.com"
+              <Link
+                href="/showcase"
                 className="text-xs mono uppercase tracking-wider text-[var(--ds-ink-soft)] hover:text-[var(--ds-ink)] transition-colors"
               >
-                Submit yours →
-              </a>
+                See full showcase →
+              </Link>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {[
-                { name: "disenio.studio", href: "/", note: "this site · meta" },
-                { name: "Studio (preview)", href: "/admin", note: "the hidden CMS" },
-                { name: "Marketing Kit", href: "#pricing", note: "coming soon" },
-                { name: "Your project?", href: "https://github.com", note: "open a PR" },
+                {
+                  name: "disenio.studio",
+                  by: "CreativeKat Studio",
+                  note: "live · this site",
+                  status: "live" as const,
+                  accent: "linear-gradient(135deg, #b27bff 0%, #6d4cf2 50%, #2f5dff 100%)",
+                  href: "/",
+                },
+                {
+                  name: "Turo LMS",
+                  by: "Creative Space Dubai",
+                  note: "in progress · pairs in the wild",
+                  status: "building" as const,
+                  accent: "linear-gradient(135deg, #ffb86c 0%, #f25c6d 50%, #b91d73 100%)",
+                  href: "/showcase",
+                },
+                {
+                  name: "Open spot",
+                  by: "Could be you",
+                  note: "send a screenshot — get featured",
+                  status: "open" as const,
+                  accent: "color-mix(in oklab, var(--ds-paper-deep) 80%, var(--ds-paper))",
+                  href: "/contact",
+                },
               ].map((s) => (
-                <a
+                <Link
                   key={s.name}
                   href={s.href}
-                  className="surface-deep p-4 flex flex-col gap-1 hover:-translate-y-0.5 transition-transform"
+                  className="surface-deep overflow-hidden flex flex-col hover:-translate-y-0.5 transition-transform"
                 >
-                  <span className="text-sm font-medium">{s.name}</span>
-                  <span className="text-xs text-[var(--ds-muted)]">{s.note}</span>
-                </a>
+                  <div
+                    className="aspect-[16/9] relative"
+                    style={{ background: s.accent }}
+                  >
+                    <div
+                      className="absolute inset-0 opacity-25 mix-blend-overlay"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(var(--ds-paper) 1px, transparent 1px), linear-gradient(90deg, var(--ds-paper) 1px, transparent 1px)",
+                        backgroundSize: "24px 24px",
+                      }}
+                    />
+                    <span
+                      className="absolute bottom-3 right-4 serif text-5xl leading-none tracking-[-0.04em] opacity-80"
+                      style={{ color: "white" }}
+                    >
+                      {s.status === "open" ? "+" : s.name.charAt(0)}
+                    </span>
+                  </div>
+                  <div className="p-4 flex flex-col gap-1">
+                    <span className="text-sm font-medium">{s.name}</span>
+                    <span className="text-[11px] mono uppercase tracking-[0.14em] text-[var(--ds-muted)]">
+                      by {s.by}
+                    </span>
+                    <span className="text-xs text-[var(--ds-ink-soft)] mt-1">{s.note}</span>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -246,7 +290,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
           <div className="grid md:grid-cols-2 gap-8 items-end">
             <div>
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 03 · showcase
               </span>
               <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
@@ -266,7 +310,7 @@ export default function Home() {
       <section id="install" className="px-6">
         <div className="mx-auto max-w-6xl py-24 grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5 flex flex-col gap-5">
-            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+            <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
               04 · install
             </span>
             <h2 className="serif text-4xl md:text-5xl tracking-[-0.04em] font-semibold">
@@ -310,7 +354,7 @@ export default function Home() {
       <section id="pricing" className="px-6 bg-[var(--ds-paper-deep)] border-y hairline">
         <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
           <div className="text-center max-w-2xl mx-auto flex flex-col gap-3">
-            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+            <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
               05 · pricing
             </span>
             <h2 className="serif text-4xl md:text-5xl tracking-[-0.04em] font-semibold">
@@ -358,14 +402,14 @@ export default function Home() {
                   <h3 className="serif text-2xl">{p.n}</h3>
                   {p.featured && (
                     <span
-                      className="mono text-[10px] uppercase tracking-[0.18em] px-2 py-0.5 rounded-full"
+                      className="mono text-[12px] uppercase tracking-[0.14em] px-2 py-0.5 rounded-full"
                       style={{ background: "var(--ds-brand-gradient)", color: "white" }}
                     >
                       Coming soon
                     </span>
                   )}
                   {!p.featured && p.soon && (
-                    <span className="mono text-[10px] uppercase tracking-[0.18em] surface-deep px-2 py-0.5 rounded-full text-[var(--ds-muted)]">
+                    <span className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-2 py-0.5 rounded-full text-[var(--ds-muted)]">
                       soon
                     </span>
                   )}
@@ -401,7 +445,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-3 gap-10 text-sm">
             <div className="flex flex-col gap-2">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 Product
               </span>
               <Link href="/docs/components">Components</Link>
@@ -410,7 +454,7 @@ export default function Home() {
               <Link href="/docs/cli">CLI</Link>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 Learn
               </span>
               <Link href="/docs">Docs</Link>
@@ -418,16 +462,29 @@ export default function Home() {
               <Link href="/docs/installation">Installation</Link>
             </div>
             <div className="flex flex-col gap-2">
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 Project
               </span>
               <a href="https://github.com">GitHub ↗</a>
               <a href="#pricing">Pricing</a>
+              <a href="/changelog">Changelog</a>
+              <a href="/contact">Contact</a>
             </div>
           </div>
         </div>
         <div className="mx-auto max-w-6xl py-6 border-t hairline flex items-center justify-between text-xs text-[var(--ds-muted)]">
-          <span>© 2026 disenio.studio</span>
+          <span>
+            © 2026 disenio.studio · a{" "}
+            <a
+              href="https://creativekat.studio"
+              target="_blank"
+              rel="noreferrer"
+              className="underline-offset-4 hover:text-[var(--ds-ink)] hover:underline"
+            >
+              creativekat.studio
+            </a>{" "}
+            project
+          </span>
           <span className="mono">made with restraint</span>
         </div>
       </footer>

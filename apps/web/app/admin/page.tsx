@@ -17,7 +17,7 @@ export default function AdminHome() {
     <div className="flex flex-col gap-10 max-w-5xl">
       <header className="flex items-end justify-between">
         <div>
-          <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">studio</span>
+          <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">studio</span>
           <h1 className="serif text-4xl mt-1">Buenas tardes, Ann.</h1>
           <p className="text-[var(--ds-ink-soft)] mt-1">Here's what's moving today.</p>
         </div>
@@ -29,7 +29,7 @@ export default function AdminHome() {
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {STATS.map((s) => (
           <div key={s.k} className="surface p-4 flex flex-col gap-2">
-            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">{s.k}</span>
+            <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">{s.k}</span>
             <span className="serif text-3xl">{s.v}</span>
             <span className="text-xs text-[var(--ds-accent)] mono">{s.d}</span>
           </div>
@@ -40,13 +40,13 @@ export default function AdminHome() {
         <div className="surface p-5 lg:col-span-2 flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h2 className="serif text-xl">Activity</h2>
-            <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)]">live</span>
+            <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">live</span>
           </div>
           <ul className="flex flex-col divide-y hairline">
             {ACTIVITY.map((a) => (
               <li key={a.what} className="flex items-center justify-between py-3 text-sm">
                 <div className="flex items-center gap-3">
-                  <span className="mono text-[10px] uppercase tracking-[0.18em] surface-deep px-2 py-0.5 rounded-full">{a.who}</span>
+                  <span className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-2 py-0.5 rounded-full">{a.who}</span>
                   <span>{a.what}</span>
                 </div>
                 <span className="text-xs text-[var(--ds-muted)]">{a.when}</span>

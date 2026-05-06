@@ -102,12 +102,12 @@ function commandInit(args) {
   };
 
   const starterTheme = `:root {
-  --ds-paper: #000000;
-  --ds-paper-deep: #0c0d12;
+  --ds-paper: #0a0b10;
+  --ds-paper-deep: #050609;
   --ds-ink: #f6f7fb;
-  --ds-ink-soft: #b8bdcd;
-  --ds-muted: #6b7186;
-  --ds-line: #1c1e28;
+  --ds-ink-soft: #d2d6e2;
+  --ds-muted: #a4a9bc;
+  --ds-line: #22242f;
   --ds-accent: #6d4cf2;
   --ds-accent-ink: #ffffff;
   --ds-radius: 12px;

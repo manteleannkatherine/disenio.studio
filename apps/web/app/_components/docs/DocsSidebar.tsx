@@ -118,7 +118,7 @@ export function DocsSidebar() {
     <nav className="flex flex-col gap-7 py-8 pr-6 sticky top-20 max-h-[calc(100vh-5rem)] overflow-y-auto">
       {SECTIONS.map((section) => (
         <div key={section.title} className="flex flex-col gap-1.5">
-          <span className="mono text-[10px] uppercase tracking-[0.18em] text-[var(--ds-muted)] px-3 mb-1">
+          <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)] px-3 mb-1">
             {section.title}
           </span>
           {section.items.map((item) => {
