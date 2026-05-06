@@ -10,6 +10,25 @@ const INQUIRY_TO = process.env.INQUIRY_TO ?? "hello@creativekat.studio";
 const TOPICS = new Set(["collab", "theme", "feedback", "press", "hi"]);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/* Per-topic subject line — short, lowercase, scannable in a single inbox.
+ * Filterable by sender (no [tag] prefix needed). */
+function buildSubject(topic: string, name: string) {
+  switch (topic) {
+    case "collab":
+      return `collab · ${name}`;
+    case "theme":
+      return `theme request · ${name}`;
+    case "feedback":
+      return `feedback · ${name}`;
+    case "press":
+      return `press inquiry · ${name}`;
+    case "hi":
+      return `${name} says hi`;
+    default:
+      return `inquiry · ${name}`;
+  }
+}
+
 const lastHit = new Map<string, number>();
 const RATE_LIMIT_MS = 30_000;
 
@@ -71,20 +90,130 @@ export async function POST(req: NextRequest) {
   }
   lastHit.set(ip, now);
 
-  const subject = `[disenio.studio] ${topicLabel} — ${name}`;
-  const text = `From: ${name} <${email}>\nTopic: ${topicLabel}\nIP: ${ip}\n\n${message}`;
-  const html = `
-    <div style="font-family:ui-sans-serif,system-ui;line-height:1.55;color:#0a0b10">
-      <p style="margin:0 0 12px;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#6b7186">
-        New inquiry · disenio.studio
-      </p>
-      <h2 style="margin:0 0 8px;font-size:20px">${escape(topicLabel)}</h2>
-      <p style="margin:0 0 4px"><strong>${escape(name)}</strong> &lt;${escape(email)}&gt;</p>
-      <p style="margin:0 0 16px;font-size:12px;color:#6b7186">IP: ${escape(ip)}</p>
-      <hr style="border:none;border-top:1px solid #e6e8f0;margin:16px 0" />
-      <pre style="white-space:pre-wrap;font-family:inherit;font-size:14px;margin:0">${escape(message)}</pre>
+  const subject = buildSubject(topic, name);
+  const sentAt = new Date().toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC",
+  });
+
+  const text = [
+    `New inquiry · disenio.studio`,
+    ``,
+    `From:  ${name} <${email}>`,
+    `Topic: ${topicLabel}`,
+    `Sent:  ${sentAt} UTC`,
+    `IP:    ${ip}`,
+    ``,
+    `─────────────────────────────`,
+    ``,
+    message,
+    ``,
+    `─────────────────────────────`,
+    `Reply directly to this email — replies go to ${email}.`,
+  ].join("\n");
+
+  const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>${escape(subject)}</title>
+  </head>
+  <body style="margin:0;padding:0;background:#f4f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,system-ui,sans-serif;color:#0a0b10;">
+    <div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0;">
+      ${escape(name)} (${escape(email)}): ${escape(message.slice(0, 90))}…
     </div>
-  `;
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f5f9;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 1px 0 rgba(15,18,32,0.04),0 18px 50px -24px rgba(15,18,32,0.18);">
+            <!-- Brand bar -->
+            <tr>
+              <td style="height:6px;background:linear-gradient(135deg,#b27bff 0%,#6d4cf2 50%,#2f5dff 100%);line-height:6px;font-size:6px;">&nbsp;</td>
+            </tr>
+
+            <!-- Header -->
+            <tr>
+              <td style="padding:28px 32px 8px 32px;">
+                <p style="margin:0 0 4px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
+                  New inquiry · disenio.studio
+                </p>
+                <h1 style="margin:0;font-size:22px;line-height:1.25;letter-spacing:-0.01em;color:#0a0b10;font-weight:600;">
+                  ${escape(topicLabel)}
+                </h1>
+              </td>
+            </tr>
+
+            <!-- From card -->
+            <tr>
+              <td style="padding:16px 32px 0 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f8f9fc;border:1px solid #e6e8f0;border-radius:10px;">
+                  <tr>
+                    <td style="padding:14px 16px;">
+                      <p style="margin:0 0 4px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
+                        From
+                      </p>
+                      <p style="margin:0;font-size:15px;line-height:1.5;color:#0a0b10;">
+                        <strong style="font-weight:600;">${escape(name)}</strong>
+                        <span style="color:#6b7186;"> · </span>
+                        <a href="mailto:${escape(email)}" style="color:#6d4cf2;text-decoration:none;">${escape(email)}</a>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Message -->
+            <tr>
+              <td style="padding:20px 32px 0 32px;">
+                <p style="margin:0 0 8px 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#8a90a3;">
+                  Message
+                </p>
+                <div style="font-size:15px;line-height:1.6;color:#1a1c26;white-space:pre-wrap;">${escape(message)}</div>
+              </td>
+            </tr>
+
+            <!-- Reply CTA -->
+            <tr>
+              <td style="padding:24px 32px 8px 32px;">
+                <a href="mailto:${escape(email)}?subject=${encodeURIComponent("Re: " + subject)}"
+                   style="display:inline-block;background:linear-gradient(135deg,#b27bff 0%,#6d4cf2 50%,#2f5dff 100%);color:#ffffff;text-decoration:none;font-weight:600;font-size:14px;padding:11px 18px;border-radius:9999px;">
+                  Reply to ${escape(name)} →
+                </a>
+                <p style="margin:10px 0 0 0;font-size:12px;color:#8a90a3;">
+                  Or just hit reply in your mail client — it's wired to <strong style="color:#6b7186;font-weight:600;">${escape(email)}</strong>.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Meta footer -->
+            <tr>
+              <td style="padding:24px 32px 28px 32px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #ececf3;">
+                  <tr>
+                    <td style="padding-top:14px;">
+                      <p style="margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#a4a9bc;">
+                        ${escape(sentAt)} UTC &nbsp;·&nbsp; topic: ${escape(topic)} &nbsp;·&nbsp; ip: ${escape(ip)}
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+          <!-- Outer attribution -->
+          <p style="margin:18px 0 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#a4a9bc;">
+            disenio.studio · a creativekat.studio project
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
 
   try {
     const resend = new Resend(RESEND_API_KEY);
