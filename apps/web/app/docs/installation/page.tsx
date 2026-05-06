@@ -26,7 +26,7 @@ export default function InstallationPage() {
           Run the init command from your project root. It writes a <code className="mono text-sm bg-[var(--ds-paper-deep)] px-1 py-0.5 rounded">disenio.json</code> config, drops a starter theme into
           <code className="mono text-sm bg-[var(--ds-paper-deep)] px-1 py-0.5 rounded">app/styles/theme.css</code>, and adds the <code className="mono text-sm bg-[var(--ds-paper-deep)] px-1 py-0.5 rounded">cn</code> utility.
         </p>
-        <InstallTabs command="disenio init" />
+        <InstallTabs command="disenio.studio init" />
       </section>
 
       <section id="add-component" className="flex flex-col gap-4">
@@ -34,7 +34,7 @@ export default function InstallationPage() {
         <p className="text-[var(--ds-ink-soft)]">
           Components copy into your repo as plain TSX — no runtime dependency on disenio.
         </p>
-        <InstallTabs command="disenio add button" />
+        <InstallTabs command="disenio.studio add button" />
       </section>
 
       <section id="import" className="flex flex-col gap-4">

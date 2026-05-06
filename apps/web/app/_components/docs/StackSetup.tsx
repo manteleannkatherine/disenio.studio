@@ -33,11 +33,11 @@ const STACKS: Stack[] = [
       {
         title: "2. Initialize disenio.studio",
         body: "Drops disenio.json, the cn util, and a starter theme.css.",
-        cmd: "cd my-app && npx disenio init",
+        cmd: "cd my-app && npx disenio.studio init",
       },
       {
         title: "3. Add the components you need",
-        cmd: "npx disenio add button input form-field stack",
+        cmd: "npx disenio.studio add button input form-field stack",
       },
       {
         title: "4. Wire the theme into globals",
@@ -99,7 +99,7 @@ export default defineConfig({
       },
       {
         title: "4. Initialize disenio.studio",
-        cmd: "npx disenio init",
+        cmd: "npx disenio.studio init",
       },
       {
         title: "5. Update tsconfig for the @/ alias",
@@ -115,7 +115,7 @@ export default defineConfig({
       },
       {
         title: "6. Add components and wire CSS",
-        cmd: "npx disenio add button input",
+        cmd: "npx disenio.studio add button input",
         note: "Then import @/styles/theme.css from src/main.tsx alongside index.css.",
       },
     ],
@@ -135,11 +135,11 @@ export default defineConfig({
       },
       {
         title: "3. Initialize disenio.studio",
-        cmd: "npx disenio init",
+        cmd: "npx disenio.studio init",
       },
       {
         title: "4. Add components",
-        cmd: "npx disenio add button input",
+        cmd: "npx disenio.studio add button input",
       },
       {
         title: "5. Use them in an island",
@@ -178,11 +178,11 @@ export default defineConfig({ plugins: [remix(), tailwindcss()] });`,
       },
       {
         title: "4. Initialize disenio.studio",
-        cmd: "npx disenio init",
+        cmd: "npx disenio.studio init",
       },
       {
         title: "5. Add components",
-        cmd: "npx disenio add button form-field",
+        cmd: "npx disenio.studio add button form-field",
       },
     ],
   },
@@ -201,11 +201,11 @@ export default defineConfig({ plugins: [remix(), tailwindcss()] });`,
       },
       {
         title: "3. Initialize disenio.studio",
-        cmd: "npx disenio init",
+        cmd: "npx disenio.studio init",
       },
       {
         title: "4. Add components",
-        cmd: "npx disenio add button input",
+        cmd: "npx disenio.studio add button input",
       },
     ],
   },

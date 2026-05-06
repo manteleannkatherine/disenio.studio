@@ -16,9 +16,9 @@ export default function SetupPage() {
       <section id="missing" className="flex flex-col gap-3 surface p-5 mt-6">
         <h2 className="font-semibold">Don't see your stack?</h2>
         <p className="text-sm text-[var(--ds-ink-soft)]">
-          disenio works in any React project that can run Tailwind v4. The CLI just copies plain TSX.
-          Open a <a href="https://github.com" className="underline">GitHub issue</a> with your setup
-          and we'll add a tab — usually within a day.
+          disenio.studio works in any React project that can run Tailwind v4. The CLI just copies plain TSX.
+          <a href="/contact" className="underline"> Drop us a line</a> with your setup
+          and we&apos;ll add a tab — usually within a day.
         </p>
         <p className="text-sm text-[var(--ds-ink-soft)]">
           For more depth, see the full{" "}

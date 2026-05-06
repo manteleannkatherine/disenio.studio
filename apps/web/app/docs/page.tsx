@@ -45,7 +45,7 @@ export default function DocsHome() {
             { href: "/docs/installation", title: "Installation", desc: "Quickstart for Next.js, Vite, Astro." },
             { href: "/docs/theming", title: "Theming", desc: "Live editor and exportable tokens." },
             { href: "/docs/components", title: "Components", desc: "Browse the full set." },
-            { href: "/docs/cli", title: "CLI reference", desc: "Every disenio command." },
+            { href: "/docs/cli", title: "CLI reference", desc: "Every disenio.studio command." },
           ].map((c) => (
             <Link
               key={c.href}

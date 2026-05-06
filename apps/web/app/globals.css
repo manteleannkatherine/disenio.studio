@@ -2,12 +2,12 @@
 @source "../../../packages/disenio/src/**/*.{ts,tsx}";
 
 :root {
-  --ds-paper: #0a0b10;
-  --ds-paper-deep: #050609;
+  --ds-paper: #14161e;
+  --ds-paper-deep: #0d0f15;
   --ds-ink: #f6f7fb;
   --ds-ink-soft: #d2d6e2;
   --ds-muted: #a4a9bc;
-  --ds-line: #22242f;
+  --ds-line: #2a2d38;
   --ds-accent: #6d4cf2;
   --ds-accent-ink: #ffffff;
   --ds-radius: 12px;
@@ -20,7 +20,12 @@
   --ds-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial;
   --ds-font-serif: Inter, ui-sans-serif, system-ui, "Helvetica Neue", Arial;
   --ds-letter-spacing: -0.02em;
-  --ds-brand-gradient: linear-gradient(135deg, #b27bff 0%, #6d4cf2 50%, #2f5dff 100%);
+  --ds-brand-gradient: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--ds-accent) 65%, white 35%) 0%,
+    var(--ds-accent) 50%,
+    color-mix(in oklab, var(--ds-accent) 75%, black 25%) 100%
+  );
 }
 
 @font-face {

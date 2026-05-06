@@ -103,7 +103,7 @@ export function HomeShowcase() {
       <div className="lg:col-span-2">
         <EmptyState
           title="No components yet"
-          description="Run `disenio add button` to install your first one. Or just browse the registry — it ships 11 components, 4 pairs, and 8 layouts out of the box."
+          description="Run `disenio.studio add button` to install your first one. Or just browse the registry — it ships 11 components, 4 pairs, and 8 layouts out of the box."
           action={
             <Cluster gap="sm">
               <Button variant="accent" size="sm">Browse components</Button>

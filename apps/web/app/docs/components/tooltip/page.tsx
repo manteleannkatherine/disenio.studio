@@ -31,7 +31,7 @@ export default async function TooltipPage() {
       </Preview>
       <section id="install" className="flex flex-col gap-4">
         <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Installation</h2>
-        <InstallTabs command="disenio add tooltip" />
+        <InstallTabs command="disenio.studio add tooltip" />
       </section>
       <section id="usage" className="flex flex-col gap-4">
         <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Usage</h2>

@@ -33,7 +33,7 @@ export default async function ToastPage() {
       </Preview>
       <section id="install" className="flex flex-col gap-4">
         <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Installation</h2>
-        <InstallTabs command="disenio add toast" />
+        <InstallTabs command="disenio.studio add toast" />
       </section>
       <section id="provider" className="flex flex-col gap-4">
         <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Wire the provider</h2>

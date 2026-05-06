@@ -44,7 +44,9 @@ export function Select({
     if (!isControlled) setInternal(val);
     onValueChange?.(val);
     setOpen(false);
-    triggerRef.current?.focus();
+    // Defer focus until after the close has flushed, so the outside-click
+    // listener doesn't see a re-render mid-flight on Safari/Firefox.
+    requestAnimationFrame(() => triggerRef.current?.focus());
   };
 
   React.useEffect(() => {
@@ -128,7 +130,20 @@ export function Select({
                   aria-selected={isSelected}
                   aria-disabled={opt.disabled}
                   onMouseEnter={() => setActive(i)}
-                  onClick={() => !opt.disabled && select(opt.value)}
+                  onMouseDown={(e) => {
+                    // Run on mousedown so we close before the document's
+                    // outside-click listener has a chance to disagree.
+                    if (opt.disabled) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    select(opt.value);
+                  }}
+                  onClick={(e) => {
+                    // Click is a fallback for keyboard / assistive tech.
+                    if (opt.disabled) return;
+                    e.stopPropagation();
+                    if (open) select(opt.value);
+                  }}
                   className="px-3 h-9 flex items-center justify-between gap-2 rounded-md text-sm cursor-pointer transition-colors"
                   style={{
                     background: isActive ? "var(--ds-paper-deep)" : "transparent",

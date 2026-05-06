@@ -47,7 +47,7 @@ export const FEELS: Record<Feel, { label: string; blurb: string; tokens: FeelTok
   },
   modernDark: {
     label: "Modern · Dark",
-    blurb: "Pure black, gradient brand, electric.",
+    blurb: "Soft near-black, gradient brand, electric.",
     tokens: {
       radius: "12px",
       duration: "180ms",
@@ -58,12 +58,12 @@ export const FEELS: Record<Feel, { label: string; blurb: string; tokens: FeelTok
       letterSpacing: "-0.02em",
       buttonRadius: "10px",
       fieldRadius: "10px",
-      paper: "#000000",
-      paperDeep: "#0a0a0f",
+      paper: "#14161e",
+      paperDeep: "#0d0f15",
       ink: "#f6f7fb",
-      inkSoft: "#b8bdcd",
-      muted: "#6b7186",
-      line: "#15161d",
+      inkSoft: "#d2d6e2",
+      muted: "#a4a9bc",
+      line: "#2a2d38",
     },
   },
   editorial: {
@@ -190,6 +190,13 @@ function applyTokens(feel: Feel, accent: string) {
   // accent-ink: pick black or paper based on luminance
   const ink = readableInk(accent);
   r.setProperty("--ds-accent-ink", ink);
+  // Brand gradient is derived from the accent so it auto-tunes when users
+  // pick their own brand color. Explicit overrides happen in disenio.json
+  // via the CLI's --gradient flag (and live in theme.css directly).
+  r.setProperty(
+    "--ds-brand-gradient",
+    `linear-gradient(135deg, color-mix(in oklab, ${accent} 65%, white 35%) 0%, ${accent} 50%, color-mix(in oklab, ${accent} 75%, black 25%) 100%)`,
+  );
 }
 
 /* ──────────────  Share-link encoding  ────────────── */
@@ -326,6 +333,7 @@ export function ThemeProvider({
   --ds-field-radius: ${t.fieldRadius};
   --ds-accent: ${accent};
   --ds-accent-ink: ${readableInk(accent)};
+  --ds-brand-gradient: linear-gradient(135deg, color-mix(in oklab, ${accent} 65%, white 35%) 0%, ${accent} 50%, color-mix(in oklab, ${accent} 75%, black 25%) 100%);
 }`;
       },
     }),

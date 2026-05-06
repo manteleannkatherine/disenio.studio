@@ -22,15 +22,26 @@ type Entry = {
 
 const ENTRIES: Entry[] = [
   {
-    date: "2026-05-06",
-    version: "0.2.1",
+    date: "2026-05-07",
+    version: "0.2.0",
     tag: "release",
-    title: "Published to npm. New name, new home.",
+    title: "Live on npm. Install from anywhere.",
     notes: [
-      "Rebranded disenio.io → disenio.studio. Same toolkit, sharper identity.",
-      "CLI is live on npm: `npx disenio.studio init` from anywhere.",
-      "Contact page at /contact — collab, theming, feedback.",
+      "`disenio.studio` is now publicly installable: `npx disenio.studio init` works in any directory.",
+      "Brand sweep: every command in docs and on the site uses the full `disenio.studio` name.",
+      "Contact form wired to a real API with branded HTML auto-reply from CreativeKat Studio.",
+      "Showcase page · AI integration page · /llms.txt for AI agents.",
+    ],
+  },
+  {
+    date: "2026-05-06",
+    version: "0.1.9",
+    tag: "brand",
+    title: "Rebrand: disenio.io → disenio.studio.",
+    notes: [
+      "New domain, new identity. Same toolkit underneath.",
       "Theme tokens tuned: softer paper, more legible eyebrow labels.",
+      "OG images per route. Floating pill nav.",
     ],
   },
   {
@@ -52,7 +63,7 @@ const ENTRIES: Entry[] = [
     notes: [
       "Pairs landed: FormField, Toolbar, EmptyState, StatCard, FilterBar, AuthCard, PageHeading, CommentRow.",
       "Layout primitives: Stack, Cluster, Switcher, Sidebar, Center, Grid, Spacer, Divider.",
-      "CLI gained `disenio diff` and `disenio update` — lockfile-tracked components with an upgrade path.",
+      "CLI gained `disenio.studio diff` and `disenio.studio update` — lockfile-tracked components with an upgrade path.",
       "Share themes as URLs — encode the whole token set into a link.",
       "Setup guide for fresh and existing projects.",
     ],
@@ -72,7 +83,7 @@ const ENTRIES: Entry[] = [
     date: "2026-05-03",
     version: "0.0.1",
     tag: "brand",
-    title: "Day one. disenio is born.",
+    title: "Day one. disenio.studio is born.",
     notes: [
       "Monorepo scaffolded.",
       "First three primitives: Button, Input, Card.",

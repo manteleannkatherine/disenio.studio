@@ -18,15 +18,41 @@ export default function Home() {
         <div className="mx-auto max-w-6xl pt-16 lg:pt-20 pb-16 grid lg:grid-cols-12 gap-10 lg:gap-12">
           <div className="lg:col-span-7 flex flex-col gap-7">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-3 py-1 rounded-full">
-                v0.2 · early access
-              </span>
+              <a
+                href="https://www.npmjs.com/package/disenio.studio"
+                target="_blank"
+                rel="noreferrer"
+                className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-3 py-1 rounded-full inline-flex items-center gap-1.5 hover:text-[var(--ds-ink)] transition-colors"
+              >
+                <span aria-hidden className="relative flex size-1.5">
+                  <span
+                    className="absolute inset-0 rounded-full animate-ping"
+                    style={{ background: "#22c55e", opacity: 0.6 }}
+                  />
+                  <span
+                    className="relative size-1.5 rounded-full"
+                    style={{ background: "#22c55e" }}
+                  />
+                </span>
+                live on npm · v0.2 ↗
+              </a>
               <span
                 className="mono text-[12px] uppercase tracking-[0.14em] px-3 py-1 rounded-full"
                 style={{ background: "var(--ds-brand-gradient)", color: "white" }}
               >
                 new · pairs · diff/update CLI
               </span>
+              <Link
+                href="/ai"
+                className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-3 py-1 rounded-full inline-flex items-center gap-1.5 hover:text-[var(--ds-ink)] transition-colors"
+              >
+                <span
+                  aria-hidden
+                  className="size-1.5 rounded-full"
+                  style={{ background: "var(--ds-accent)" }}
+                />
+                AI-ready · prompt included →
+              </Link>
             </div>
 
             <h1 className="serif text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.95] tracking-[-0.045em] font-semibold">
@@ -51,7 +77,7 @@ export default function Home() {
                   boxShadow: "0 12px 30px -12px rgba(110,76,242,0.6)",
                 }}
               >
-                Get started → npx disenio init
+                Get started → npx disenio.studio init
               </Link>
               <Link
                 href="/docs/components"
@@ -133,7 +159,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8 items-end">
             <div>
               <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
-                01 · why disenio
+                01 · why disenio.studio
               </span>
               <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
                 What other libraries don't ship.
@@ -160,7 +186,7 @@ export default function Home() {
               },
               {
                 k: "diff & update",
-                d: "Lockfile-tracked components. Run `disenio diff` to see what changed upstream, `update` to pull it in.",
+                d: "Lockfile-tracked components. Run `disenio.studio diff` to see what changed upstream, `update` to pull it in.",
                 href: "/docs/cli",
               },
               {
@@ -320,6 +346,24 @@ export default function Home() {
               No runtime dependency. No version lock. Components copy into your repo as plain TSX,
               styled with CSS variables you exported from the editor.
             </p>
+            <a
+              href="https://www.npmjs.com/package/disenio.studio"
+              target="_blank"
+              rel="noreferrer"
+              className="self-start mono text-[12px] uppercase tracking-[0.14em] surface-deep px-3 py-1.5 rounded-full inline-flex items-center gap-2 hover:text-[var(--ds-ink)] transition-colors"
+            >
+              <span aria-hidden className="relative flex size-1.5">
+                <span
+                  className="absolute inset-0 rounded-full animate-ping"
+                  style={{ background: "#22c55e", opacity: 0.6 }}
+                />
+                <span
+                  className="relative size-1.5 rounded-full"
+                  style={{ background: "#22c55e" }}
+                />
+              </span>
+              Live on npm · view package ↗
+            </a>
             <Link
               href="/docs/setup"
               className="inline-flex items-center gap-2 text-sm text-[var(--ds-ink)] underline underline-offset-4 hover:text-[var(--ds-accent)] transition-colors"
@@ -329,10 +373,10 @@ export default function Home() {
           </div>
           <div className="lg:col-span-7 flex flex-col gap-3">
             {[
-              { c: "npx disenio init", d: "Drop tokens, the cn util, and a starter theme." },
-              { c: "npx disenio add button form-field stack", d: "Copy components and pairs as source." },
-              { c: "npx disenio diff", d: "See what changed locally vs upstream." },
-              { c: "npx disenio update --force", d: "Pull the latest into your repo." },
+              { c: "npx disenio.studio init", d: "Drop tokens, the cn util, and a starter theme." },
+              { c: "npx disenio.studio add button form-field stack", d: "Copy components and pairs as source." },
+              { c: "npx disenio.studio diff", d: "See what changed locally vs upstream." },
+              { c: "npx disenio.studio update --force", d: "Pull the latest into your repo." },
             ].map((s, i) => (
               <div key={s.c} className="surface p-4 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4 min-w-0">
@@ -350,86 +394,192 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="px-6 bg-[var(--ds-paper-deep)] border-y hairline">
-        <div className="mx-auto max-w-6xl py-24 flex flex-col gap-10">
-          <div className="text-center max-w-2xl mx-auto flex flex-col gap-3">
-            <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
-              05 · pricing
-            </span>
-            <h2 className="serif text-4xl md:text-5xl tracking-[-0.04em] font-semibold">
-              Free core. Polish coming soon.
-            </h2>
-            <p className="text-[var(--ds-ink-soft)]">
-              The library, layout primitives, pairs, CLI, and 6 Feels are MIT. Premium kits and
-              themes ship next.
+      {/* AI bridge */}
+      <section className="px-6">
+        <div className="mx-auto max-w-6xl pb-16">
+          <div
+            className="surface-deep relative overflow-hidden p-6 sm:p-8 grid sm:grid-cols-[1fr_auto] gap-6 items-center border hairline"
+            style={{ borderRadius: "var(--ds-radius)" }}
+          >
+            <div
+              aria-hidden
+              className="absolute -right-20 -top-24 size-72 rounded-full opacity-40 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(circle, var(--ds-accent) 0%, transparent 70%)",
+              }}
+            />
+            <div className="relative flex flex-col gap-2">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
+                — Building with Claude or Cursor?
+              </span>
+              <h3 className="serif text-2xl sm:text-3xl tracking-[-0.025em] font-semibold">
+                Drop one prompt instead of explaining the toolkit.
+              </h3>
+              <p className="text-sm text-[var(--ds-ink-soft)] max-w-xl">
+                We wrote the system prompt for you. Conventions, tokens, pairs, CLI commands —
+                everything an AI assistant needs to ship correct code on the first try.
+              </p>
+            </div>
+            <Link
+              href="/ai"
+              className="relative inline-flex items-center justify-center h-11 px-5 text-sm font-medium text-white transition-transform hover:-translate-y-0.5 self-start sm:self-auto whitespace-nowrap"
+              style={{
+                borderRadius: "var(--ds-button-radius)",
+                background: "var(--ds-brand-gradient)",
+                boxShadow: "0 12px 30px -12px rgba(110,76,242,0.55)",
+              }}
+            >
+              Grab the prompt →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Roadmap */}
+      <section id="roadmap" className="px-6 bg-[var(--ds-paper-deep)] border-y hairline">
+        <div className="mx-auto max-w-6xl py-24 flex flex-col gap-12">
+          <div className="grid md:grid-cols-2 gap-8 items-end">
+            <div>
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
+                05 · roadmap
+              </span>
+              <h2 className="serif text-4xl md:text-5xl mt-2 tracking-[-0.04em] font-semibold">
+                What we&apos;re shipping next.
+              </h2>
+            </div>
+            <p className="text-[var(--ds-ink-soft)] max-w-[52ch]">
+              Built in public. The list is short on purpose — we&apos;d rather ship three things
+              well than promise twelve. Want a vote?{" "}
+              <Link
+                href="/contact"
+                className="underline-offset-4 hover:text-[var(--ds-ink)] hover:underline"
+              >
+                Tell us
+              </Link>
+              .
             </p>
           </div>
-          <div className="grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto w-full">
+
+          <div className="grid sm:grid-cols-3 gap-4">
             {[
               {
-                n: "Open",
-                p: "Free",
-                b: "11 components · 8 layouts · 4 pairs · CLI · 6 Feels · share links.",
-                cta: "Get started",
-                href: "/docs/setup",
-                ctaTone: "outline" as const,
+                kind: "shipped",
+                label: "Shipped",
+                dot: "var(--ds-accent)",
+                glow:
+                  "0 0 0 4px color-mix(in oklab, var(--ds-accent) 22%, transparent)",
+                items: [
+                  "Live on npm — npx disenio.studio init",
+                  "14 components",
+                  "9 pairs",
+                  "8 layout primitives",
+                  "6 Feels",
+                  "CLI: init / add / diff / update",
+                  "Share themes as URLs",
+                  "AI integration prompt",
+                ],
               },
               {
-                n: "Pro",
-                p: "$96",
-                b: "Marketing Kit + Dashboard Kit + Email Kit. Lifetime updates.",
-                cta: "Notify me",
-                href: "#",
-                featured: true,
-                soon: true,
+                kind: "next",
+                label: "Next up",
+                dot: "var(--ds-ink)",
+                glow: "none",
+                items: [
+                  "Combobox & Multiselect",
+                  "Date / range picker",
+                  "Drawer / Sheet",
+                  "Command palette (as a primitive)",
+                  "Marketing Kit (10 sections)",
+                  "Live install metrics on the site",
+                ],
               },
               {
-                n: "Studio",
-                p: "$19/mo",
-                b: "Hosted /studio: themes, blog, changelog, custom domain.",
-                cta: "Notify me",
-                href: "#",
-                soon: true,
+                kind: "later",
+                label: "Later",
+                dot: "var(--ds-muted)",
+                glow: "none",
+                items: [
+                  "Dashboard Kit",
+                  "Email Kit",
+                  "Hosted Studio (custom domain)",
+                  "Figma plugin",
+                  "Theme marketplace",
+                ],
               },
-            ].map((p) => (
+            ].map((col) => (
               <div
-                key={p.n}
-                className="surface p-6 flex flex-col gap-4 relative"
-                style={p.featured ? { borderColor: "var(--ds-accent)", borderWidth: 2 } : undefined}
+                key={col.kind}
+                className="surface p-6 flex flex-col gap-5 relative"
               >
-                <div className="flex items-center justify-between">
-                  <h3 className="serif text-2xl">{p.n}</h3>
-                  {p.featured && (
-                    <span
-                      className="mono text-[12px] uppercase tracking-[0.14em] px-2 py-0.5 rounded-full"
-                      style={{ background: "var(--ds-brand-gradient)", color: "white" }}
-                    >
-                      Coming soon
-                    </span>
-                  )}
-                  {!p.featured && p.soon && (
-                    <span className="mono text-[12px] uppercase tracking-[0.14em] surface-deep px-2 py-0.5 rounded-full text-[var(--ds-muted)]">
-                      soon
-                    </span>
-                  )}
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="size-2 rounded-full shrink-0"
+                    style={{ background: col.dot, boxShadow: col.glow }}
+                  />
+                  <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-ink-soft)]">
+                    {col.label}
+                  </span>
+                  <span className="mono text-[11px] text-[var(--ds-muted)] ml-auto">
+                    {col.items.length}
+                  </span>
                 </div>
-                <div className="serif text-5xl">{p.p}</div>
-                <p className="text-sm text-[var(--ds-ink-soft)] min-h-[60px]">{p.b}</p>
-                <a
-                  href={p.href}
-                  className="inline-flex items-center justify-center h-11 font-medium transition-transform hover:-translate-y-0.5"
-                  style={{
-                    borderRadius: "var(--ds-button-radius)",
-                    background: p.featured ? "var(--ds-brand-gradient)" : "transparent",
-                    color: p.featured ? "white" : "var(--ds-ink)",
-                    border: p.featured ? "none" : "1px solid var(--ds-line)",
-                  }}
-                >
-                  {p.cta} →
-                </a>
+                <ul className="flex flex-col gap-2">
+                  {col.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-sm text-[var(--ds-ink-soft)]"
+                    >
+                      <span
+                        className="mono text-[var(--ds-muted)] mt-0.5 select-none"
+                        aria-hidden
+                      >
+                        {col.kind === "shipped" ? "✓" : col.kind === "next" ? "→" : "·"}
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
+          </div>
+
+          {/* Notify CTA */}
+          <div
+            className="surface relative overflow-hidden p-6 sm:p-8 grid sm:grid-cols-[1fr_auto] gap-6 items-center"
+            style={{ borderRadius: "var(--ds-radius)" }}
+          >
+            <div
+              aria-hidden
+              className="absolute -left-32 -bottom-24 size-72 rounded-full opacity-30 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(circle, var(--ds-accent) 0%, transparent 70%)",
+              }}
+            />
+            <div className="relative flex flex-col gap-2">
+              <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
+                — Want a heads up?
+              </span>
+              <h3 className="serif text-2xl sm:text-3xl tracking-[-0.025em] font-semibold">
+                Get notified when the next drop ships.
+              </h3>
+              <p className="text-sm text-[var(--ds-ink-soft)] max-w-xl">
+                One short email when something on the roadmap goes live. No mailing list, no
+                drip funnel — just a heads up. Unsubscribe with one click.
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="relative inline-flex items-center justify-center h-11 px-5 text-sm font-medium text-white transition-transform hover:-translate-y-0.5 self-start sm:self-auto whitespace-nowrap"
+              style={{
+                borderRadius: "var(--ds-button-radius)",
+                background: "var(--ds-brand-gradient)",
+                boxShadow: "0 12px 30px -12px rgba(110,76,242,0.55)",
+              }}
+            >
+              Notify me →
+            </Link>
           </div>
         </div>
       </section>
@@ -465,10 +615,10 @@ export default function Home() {
               <span className="mono text-[12px] uppercase tracking-[0.14em] text-[var(--ds-muted)]">
                 Project
               </span>
-              <a href="https://github.com">GitHub ↗</a>
-              <a href="#pricing">Pricing</a>
+              <a href="#roadmap">Roadmap</a>
               <a href="/changelog">Changelog</a>
               <a href="/contact">Contact</a>
+              <a href="/ai">Use with AI</a>
             </div>
           </div>
         </div>

@@ -46,7 +46,7 @@ export default async function TextareaPage() {
 
       <section id="install" className="flex flex-col gap-4">
         <h2 className="serif text-2xl tracking-[-0.03em] font-semibold scroll-mt-24">Installation</h2>
-        <InstallTabs command="disenio add textarea" />
+        <InstallTabs command="disenio.studio add textarea" />
       </section>
 
       <section id="usage" className="flex flex-col gap-4">

@@ -36,7 +36,7 @@ const SNIPPETS = {
 </Toolbar>`,
   empty: `<EmptyState
   title="No components yet"
-  description="Run \`disenio add button\` to install your first one."
+  description="Run \`disenio.studio add button\` to install your first one."
   action={<Button variant="accent" size="sm">Browse components</Button>}
 />`,
   stat: `<StatCard label="Installs (7d)" value="1,284" delta="+18%" />
@@ -155,7 +155,7 @@ export default async function PairsPage() {
             </FormField>
           </Stack>
         </Preview>
-        <InstallTabs command="disenio add form-field" />
+        <InstallTabs command="disenio.studio add form-field" />
       </section>
 
       <section id="toolbar" className="flex flex-col gap-4">
@@ -179,7 +179,7 @@ export default async function PairsPage() {
             </Toolbar>
           </div>
         </Preview>
-        <InstallTabs command="disenio add toolbar" />
+        <InstallTabs command="disenio.studio add toolbar" />
       </section>
 
       <section id="empty-state" className="flex flex-col gap-4">
@@ -192,12 +192,12 @@ export default async function PairsPage() {
           <div className="w-full max-w-md">
             <EmptyState
               title="No components yet"
-              description="Run `disenio add button` to install your first one."
+              description="Run `disenio.studio add button` to install your first one."
               action={<Button variant="accent" size="sm">Browse components</Button>}
             />
           </div>
         </Preview>
-        <InstallTabs command="disenio add empty-state" />
+        <InstallTabs command="disenio.studio add empty-state" />
       </section>
 
       <section id="stat-card" className="flex flex-col gap-4">
@@ -212,7 +212,7 @@ export default async function PairsPage() {
             <StatCard label="Churn" value="0.8%" delta="-0.2%" />
           </div>
         </Preview>
-        <InstallTabs command="disenio add stat-card" />
+        <InstallTabs command="disenio.studio add stat-card" />
       </section>
 
       <section id="filter-bar" className="flex flex-col gap-4">
@@ -223,7 +223,7 @@ export default async function PairsPage() {
         <Preview code={SNIPPETS.filter} highlightedCode={hFilter}>
           <FilterBarDemo />
         </Preview>
-        <InstallTabs command="disenio add filter-bar" />
+        <InstallTabs command="disenio.studio add filter-bar" />
       </section>
 
       <section id="auth-card" className="flex flex-col gap-4">
@@ -252,7 +252,7 @@ export default async function PairsPage() {
             <Button variant="accent">Sign in →</Button>
           </AuthCard>
         </Preview>
-        <InstallTabs command="disenio add auth-card" />
+        <InstallTabs command="disenio.studio add auth-card" />
       </section>
 
       <section id="page-heading" className="flex flex-col gap-4">
@@ -276,7 +276,7 @@ export default async function PairsPage() {
             />
           </div>
         </Preview>
-        <InstallTabs command="disenio add page-heading" />
+        <InstallTabs command="disenio.studio add page-heading" />
       </section>
 
       <section id="comment-row" className="flex flex-col gap-4">
@@ -310,7 +310,7 @@ export default async function PairsPage() {
             </CommentRow>
           </Stack>
         </Preview>
-        <InstallTabs command="disenio add comment-row" />
+        <InstallTabs command="disenio.studio add comment-row" />
       </section>
 
       <section id="price-card" className="flex flex-col gap-4">
@@ -346,7 +346,7 @@ export default async function PairsPage() {
             />
           </div>
         </Preview>
-        <InstallTabs command="disenio add price-card" />
+        <InstallTabs command="disenio.studio add price-card" />
       </section>
 
       <section id="next" className="flex flex-col gap-4">

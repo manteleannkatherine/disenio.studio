@@ -9,6 +9,7 @@ import { CommandPaletteTrigger } from "./CommandPaletteTrigger";
 const NAV_LINKS = [
   { href: "/docs", label: "Docs" },
   { href: "/showcase", label: "Showcase" },
+  { href: "/ai", label: "AI" },
   { href: "/contact", label: "Contact" },
 ];
 
